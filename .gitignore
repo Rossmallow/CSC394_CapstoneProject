@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CSC_394-Capstone/.vs/CSC_394-Capstone/v16/Server/sqlite3/db.lock
