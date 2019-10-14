@@ -54,7 +54,7 @@ ROOT_URLCONF = 'csc394.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [r'C:\Users\Miran\Capstone\csc394\csc394\templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
