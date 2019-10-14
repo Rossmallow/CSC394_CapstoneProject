@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\csc394",
+    "\\csc394\\csc394",
+    "\\csc394\\csc394\\__pycache__"
   ],
-  "SelectedNode": "\\README.md",
+  "SelectedNode": "\\csc394\\db.sqlite3",
   "PreviewInSolutionExplorer": false
 }
