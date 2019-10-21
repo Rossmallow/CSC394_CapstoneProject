@@ -1,12 +1,16 @@
 from django.db import models
 
 
-class Course(models.Modle):
+class Course(models.Model):
     courseNum = models.IntegerField()
-    instructor = models.CharFirld(max_length = 250)
-    maxEnrollment = modles.IntegerFiled()
-    startData = modles.DataField()
+    title = models.CharField(max_length = 100,default = 'nullCourse')
+    instructor = models.CharField(max_length = 250)
+    maxEnrollment = models.IntegerField()
+    startDate = models.DateField()
     endDate = models.DateField()
 
-class enrolledStud(models.Modle):
+    def __str__(self):
+        return str(self.courseNum) + ' - ' + self.title
+
+#class enrolledStud(models.Modle):
  
