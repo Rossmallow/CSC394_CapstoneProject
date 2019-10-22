@@ -1,0 +1,12 @@
+<h1>{{course.title}} Home Page</h1>
+
+{% if allProj %}
+<ul>
+    {%for proj in allProj%}
+    <li><a href="/course/{{proj.id}}/">{{proj.title}}</a></li>
+    {% endfor %}
+</ul>
+
+{%else %}
+<h3>You have yet to start any projects</h3>
+{%endif%}

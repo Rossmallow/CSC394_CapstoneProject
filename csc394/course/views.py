@@ -1,17 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Course
+from django.template import loader
+from .models import Course, Project
+
 
 def index(request):
-    allCourses = Course.objects.all()
-    html = ''
-    html += "<h1>Course Home Page <h1> "
-    for proj in allCourses:
-        url = 'course/'+str(proj.id)+'/'
-        html +='<a href="'+ url+ '">'+ proj.title +'/a><br>'
-    return HttpResponse(html)
+    allProj = Project.objects.all()
+    template = loader.get_template('course/index.html')
+    context = {
+        'course' : Course.objects.first(),
+        'allProj' : allProj,
+    }
+    return HttpResponse(template.render(context, request))
 
 
 
-def coursePg(request, projId):
-   return  HttpResponse("<h2>Projects for course " + str(projId) +"<h2>")
+def projPg(request, projId):
+    #template = loader.get_template('course/projPg.html')
+    return  HttpResponse("<h2>Projects for course " + str(projId) +"<h2>")
