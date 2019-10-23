@@ -13,6 +13,7 @@ class Course(models.Model):
         return str(self.courseNum) + ' - ' + self.title
 
 
+
 class enrolledStud(models.Model):
     courseId = models.ForeignKey(Course, on_delete = models.CASCADE)
     studentId = models.IntegerField()
