@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login 
+from django.contrib.auth import logout
 from django.views import generic
 from django.views.generic import View
 from .forms import UserForm
@@ -9,37 +10,50 @@ from .forms import UserForm
 
 def login_index(request):
 
-    return HttpResponse("<h1>Login Homepage</h1>")
+    return render(request, 'login/index.html')
 
-class UserFormView(View):
-    form_class = UserForm
-    template_name = 'login/registration.html'
-    
-    #display blank html form
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return render(request, 'login/dashboard.html')
+            else:
+                return render(request, 'login/signin.html', {'error_message': 'Your account has been disabled'})
+        else:
+            return render(request, 'login/signin.html', {'error_message': 'Invalid login'})
+    return render(request, 'login/signin.html')
 
-    def get(self, request):
-        form = self.form_class(None)
-        return render(request, self.template_name, {'form':form})
- 
-    #process form data into datbase
+def logout_user(request):
+    logout(request)
+    form = UserForm(request.POST or None)
+    context = {
+        "form": form,
+    }
+    return render(request, 'login/signin.html', context)
 
-    def post(self,request):
-        form = self.form_class(request.POST)
-
-        if form.is_valid():
-            user = form.save(commit=False)
-
-            #get clean data
-
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user.set_password(password)
-            user.save()
-
-            if user is not None:
-
-                if user.is_active:
-                    login(request,user)
-                    return redirect ('login_index')
-        return render(request, self.template_name, {'form':form})
+def register(request):
+    form = UserForm(request.POST or None)
+    if form.is_valid():
+        user = form.save(commit=False)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user.set_password(password)
+        user.save()
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return render(request, 'login/dashboard.html')
+    context = {
+        "form": form,
+    }
+    return render(request, 'login/registration.html', context)
    
+def dashboard(request):
+    if not request.user.is_authenticated:
+        return render(request, 'login/signin.html')
+    return render(request,'login/dashboard.html')
