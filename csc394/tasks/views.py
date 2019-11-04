@@ -5,7 +5,7 @@ from .models import TodoItem
 # Create your views here.
 def taskView (request):
     all_todo_items = TodoItem.objects.all()
-    return render(request,'tasks.html',
+    return render(request,'tasks/index.html',
     {'all_items': all_todo_items})
 
 def addTodo(request):
@@ -19,3 +19,6 @@ def deleteTodo(request, todo_id):
     item_to_delete.delete()
     return HttpResponseRedirect('/tasks/')
     #create new todo all_items
+
+def details (request, todo_id):
+    return HttpResponse("<h2>Details for Task: {0} </h2>".format(todo_id))

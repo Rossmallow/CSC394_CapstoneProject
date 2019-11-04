@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tasks.views import taskView, addTodo, deleteTodo
+from tasks.views import taskView, addTodo, deleteTodo, details
 
 
 urlpatterns = [
@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('login.urls')),
     path('timeline/', include('Timeline.urls')),
     path('tasks/', taskView),
+    path('tasks/<int:todo_id>/',details),
     path('addTodo/', addTodo),
     path('deleteTodo/<int:todo_id>/', deleteTodo),
 ]
