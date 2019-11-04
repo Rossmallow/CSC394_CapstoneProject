@@ -9,7 +9,7 @@ def taskView (request):
     {'all_items': all_todo_items})
 
 def addTodo(request):
-    new_item = TodoItem(content = request.POST['content'], title = request.POST['title'])
+    new_item = TodoItem(content = request.POST['content'], title = request.POST['title'], date= request.POST['date'])
     new_item.save()
     return HttpResponseRedirect('/tasks/')
     #create new todo all_items
