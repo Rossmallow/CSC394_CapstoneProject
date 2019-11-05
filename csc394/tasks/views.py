@@ -19,3 +19,5 @@ def deleteTodo(request, todo_id):
     item_to_delete.delete()
     return HttpResponseRedirect('/tasks/')
     #create new todo all_items
+
+def taskDescription()
