@@ -21,4 +21,8 @@ def deleteTodo(request, todo_id):
     #create new todo all_items
 
 def todoDetails(request, todo_id):
-    return render(request, 'tasks/taskDetails.html', {'todo_id': todo_id})
+    try:
+        todoItem = TodoItem.objects.get(pk=todo_id)
+    except TodoItem.DoesNotExist:
+        return HttpResponse("Task does not exist", status=404)
+    return render(request, 'tasks/taskDetails.html', {'todoItem': todoItem})
