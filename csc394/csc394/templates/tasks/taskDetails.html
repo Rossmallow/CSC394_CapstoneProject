@@ -1,11 +1,3 @@
-<h1>Title: {{todoItem.title}}</h1>
-
-<h2>Description: {{todoItem.content}}</h2>
-
-<h3>Due Date: {{todoItem.date}}</h3>
-
-<h3>Assigned User: {{todoItem.user}}</h3>
-
 <body>
     <div class="task-list" id="formTodo">
         <form id=todo-form action="/editTodo/{{todoItem.id}}/" method="post">{% csrf_token %}
