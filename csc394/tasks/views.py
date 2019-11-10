@@ -13,10 +13,21 @@ def taskView(request):
 
 def addTodo(request):
     new_item = TodoItem(
-        content=request.POST['content'], title=request.POST['title'], date=request.POST['date'], user=request.POST['user'])
+        content=request.POST['content'], title=request.POST['title'],
+        date=request.POST['date'], user=request.POST['user'])
     new_item.save()
     return HttpResponseRedirect('/tasks/')
     # create new todo all_items
+
+
+def editTodo(request, todo_id):
+    item_to_edit = TodoItem.objects.get(id=todo_id)
+    item_to_edit.content = request.POST['content']
+    item_to_edit.title = request.POST['title']
+    item_to_edit.date = request.POST['date']
+    item_to_edit.user = request.POST['user']
+    item_to_edit.save()
+    return HttpResponseRedirect('/tasks/{}'.format(todo_id))
 
 
 def deleteTodo(request, todo_id):
