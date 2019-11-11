@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -114,14 +116,15 @@
                     "text": params.title
                 }).appendTo(wrapper);
 
-                wrapperDate = $("<div />", {
-                    "class": defaults.todoDate,
-                    "text": params.date
-                }).appendTo(wrapper);
 
                 wrapperDescription = $("<div />", {
                     "class": defaults.todoDescription,
                     "text": params.description
+                }).appendTo(wrapper);
+
+                wrapperDate = $("<div />", {
+                    "class": defaults.todoDate,
+                    "text": params.date
                 }).appendTo(wrapper);
 
             };
@@ -215,7 +218,11 @@
 
         })(todo, data, jQuery);
     </script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"
+        rel="stylesheet">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
     <style>
         body {
@@ -251,7 +258,7 @@
         .task-list input,
         .task-list textarea {
             width: 240px;
-            margin: 5px 5px;
+            margin: 1px 5px;
         }
 
         .task-list input {
@@ -259,40 +266,8 @@
         }
 
         .task-list input[type="button"] {
-            width: 150px;
-            margin-top: 5px;
-            margin-left: 50px;
-
-        }
-
-        /*Add a task section*/
-        #formTodo {
-            width: 250px;
-            float: left;
-            margin-left: 20px;
-            margin-right: 15px;
-            margin-top: 0px;
-            background-color: #e3e3e3;
-            min-height: 240px;
-            border-radius: 10px;
-            padding-bottom: 15px;
-
-
-        }
-
-
-        #formTodo input,
-        #formTodo textarea {
-            width: 220px;
-            margin-left: 15px;
-            margin-top: 3px;
-            margin-bottom: 2px;
-            /* margin: 1px 5px; */
-
-        }
-
-        #formTodo input {
-            height: 25px;
+            width: 100px;
+            margin: 5px;
         }
 
 
@@ -317,7 +292,6 @@
             font-size: smaller;
         }
 
-        h1,
         h3 {
             text-align: center;
         }
@@ -331,15 +305,6 @@
             line-height: 75px;
             text-align: center;
         }
-
-        .verticalLine {
-            border-left: 6px dotted black;
-            height: 250px;
-            position: absolute;
-            left: 26%;
-            margin-left: 10px;
-            top: 30;
-        }
     </style>
     <meta charset="UTF-8">
     <title>{% block title %}D3L{% endblock %}</title>
@@ -348,7 +313,6 @@
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
 
 </head>
 
@@ -378,16 +342,13 @@
             </div>
         </div>
     </nav>
-
-
-    <h1>Tasks</h1>
-
     {% block body %}
     {% endblock %}
+
     <div class="container">
-        <div class="task-list" id="formTodo">
+        <div class="task-list">
             <h3>Add a task</h3>
-            <form id="todo-form" action="/addTodo/" method="post">{% csrf_token %}
+            <form id="todo-form" action="/addTodo/" method="post">
                 <input type="text" placeholder="Title" name="title" />
                 <textarea placeholder="Description" name="content"></textarea>
                 <input type="text" id="datepicker" placeholder="Due Date (dd/mm/yy)" name="date" />
@@ -396,23 +357,8 @@
             <input type="button" class="btn btn-primary" value="Clear all" onclick="todo.clear();" />
             <div id="delete-div">Drag Here to Delete</div>
         </div>
-        <div class="verticalLine"></div>
         <div class="task-list" id="pending">
-            <h3>To-Do</h3>
-            <!-- {% for todo_item in all_items%}
-            <div class="todo-task">
-                <div class="task-header">{{ todo_item.title}}
-                    <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete Task" />
-                    </form>
-                </div>
-                <div class="task-description">{{ todo_item.content}}</div>
-                <div class="task-date">{{ todo_item.date}}
-                    <a href="http://www.nike.com" style="float: right;">edit</a>
-                </div>
-            </div>
-            {% endfor %} -->
+            <h3>Pending</h3>
         </div>
         <div class="task-list" id="inProgress">
             <h3>In Progress</h3>
@@ -429,9 +375,10 @@
         integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
+
     <script type="text/javascript">
         $("#datepicker").datepicker();
-        $("#datepicker").datepicker("option", "dateFormat", "dd/mm/yy");
+        $("#datepicker").datepicker("option", "dateFormat", "mm/dd/yy");
         todo.init();
     </script>
 
