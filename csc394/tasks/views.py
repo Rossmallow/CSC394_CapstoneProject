@@ -20,7 +20,6 @@ def deleteTodo(request, todo_id):
     item_to_delete = TodoItem.objects.get(id=todo_id)
     item_to_delete.delete()
     return HttpResponseRedirect('/tasks/')
-<<<<<<< HEAD
 
 # def profile(request):
 #     args = {'user': request.user.pk}
@@ -30,11 +29,10 @@ def testTaskView(request):
     return render(request, 'testing.html')
     #create new todo all_items
 
-<<<<<<< HEAD
+
 def details (request, todo_id):
     return HttpResponse("<h2>Details for Task: {0} </h2>".format(todo_id))
->>>>>>> 737476c08d98195d3cc6f45774aa5ad4e23a7e51
-=======
+
 def todoDetails(request, todo_id):
     return render(request, 'tasks/taskDetails.html', {'todo_id': todo_id})
->>>>>>> 9b20a630df28442b4cfb3d09350b7073256bc216
+
