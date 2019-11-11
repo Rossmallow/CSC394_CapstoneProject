@@ -1,1 +1,1 @@
-# Capstone
+# Csc394 Capstone
