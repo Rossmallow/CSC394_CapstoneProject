@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}D3L{% endblock %}</title>
@@ -11,6 +12,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </head>
+
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -30,6 +32,7 @@
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="nav navbar-nav">
                     <li class=""><a href="#">Timeline</a></li>
+                    <li class=""><a href="{% url 'tasksPage' %}">Tasks</a></li>
                     <li class=""><a href="#">Chat</a></li>
                     <li class=""><a href="{% url 'login:logout_user' %}">Log Out</a></li>
                     <li class="nav navbar-nav navbar-left"><a href="#">Hello, {{ user.get_username }}.</a></li>
@@ -42,4 +45,5 @@
     {% block body %}
     {% endblock %}
 </body>
+
 </html>
