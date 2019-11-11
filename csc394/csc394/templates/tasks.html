@@ -93,6 +93,10 @@
             font-size: smaller;
         }
 
+        .todo-task>.task-assignee {
+            font-size: smaller;
+        }
+
 
         h3,
         h1 {
@@ -120,6 +124,8 @@
             <!-- <input type="text" name="content" placeholder="description" /> -->
             <label>Due Date</label>
             <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" />
+            <label>Assign to User</label>
+            <input type="text" name="user" placeholder="Ada Lovelace" />
             <input type="submit" value="Add" />
         </form>
         <!-- <form id="todo-form">
@@ -140,6 +146,7 @@
                     <input type="submit" value="Delete Task" />
                 </form>
             </div>
+            <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
             <div class="task-description">{{ todo_item.content}}</div>
             <div class="task-date">{{ todo_item.date}}
                 <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
