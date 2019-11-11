@@ -28,10 +28,6 @@ urlpatterns = [
     path('addTodo/', addTodo),
     path('deleteTodo/<int:todo_id>/', deleteTodo),
     path('tasks/<int:todo_id>/', todoDetails),
-<<<<<<< HEAD
     path('testTaskView/', testTaskView),
    
-=======
-    path('tasks/<int:todo_id>/', todoDetails),
->>>>>>> 9b20a630df28442b4cfb3d09350b7073256bc216
 ]

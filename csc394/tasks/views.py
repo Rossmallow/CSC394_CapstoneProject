@@ -28,7 +28,6 @@ def deleteTodo(request, todo_id):
 
 def testTaskView(request):
     return render(request, 'testing.html')
-=======
     #create new todo all_items
 
 <<<<<<< HEAD
