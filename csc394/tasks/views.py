@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 def taskView (request):
     all_todo_items = TodoItem.objects.all()
-    return render(request,'tasks/index.html',
+    return render(request,'tasks.html',
     {'all_items': all_todo_items})
 
 def addTodo(request):
