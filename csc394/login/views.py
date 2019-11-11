@@ -6,6 +6,8 @@ from django.contrib.auth import logout
 from django.views import generic
 from django.views.generic import View
 from .forms import UserForm
+from tasks.views import taskView
+from tasks.models import TodoItem
 # Create your views here.
 
 def login_index(request):
@@ -56,4 +58,8 @@ def register(request):
 def dashboard(request):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
+    queryset = TodoItem.objects.all()
+    context = {
+        "object_list":queryset
+        }
     return render(request,'login/dashboard.html')
