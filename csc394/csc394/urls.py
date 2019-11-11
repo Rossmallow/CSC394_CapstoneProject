@@ -15,15 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+<<<<<<< HEAD
 from tasks.views import taskView, addTodo, deleteTodo, testTaskView
 
+=======
+from tasks.views import taskView, addTodo, deleteTodo, details
+>>>>>>> 737476c08d98195d3cc6f45774aa5ad4e23a7e51
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('login.urls')),
     path('timeline/', include('Timeline.urls')),
+<<<<<<< HEAD
     path('tasks/', taskView, name="tasksPage"),
+=======
+    path('tasks/', taskView),
+    path('tasks/<int:todo_id>/',details),
+>>>>>>> 737476c08d98195d3cc6f45774aa5ad4e23a7e51
     path('addTodo/', addTodo),
     path('deleteTodo/<int:todo_id>/', deleteTodo),
     path('testTaskView/', testTaskView),
