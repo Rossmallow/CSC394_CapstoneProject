@@ -27,4 +27,5 @@ urlpatterns = [
     path('editTodo/<int:todo_id>/', editTodo),
     path('deleteTodo/<int:todo_id>/', deleteTodo),
     path('tasks/<int:todo_id>/', todoDetails),
+    path('course/', include('course.urls')),
 ]
