@@ -1,19 +1,23 @@
-<body>
-    <div class="task-list" id="formTodo">
-        <form id=todo-form action="/editTodo/{{todoItem.id}}/" method="post">{% csrf_token %}
-            <label>Title: </label>
-            <textarea style="resize:none" name="title" rows="1">{{todoItem.title}}</textarea>
-            </br>
-            <label>Description: </label>
-            <textarea name="content">{{todoItem.content}}</textarea>
-            </br>
-            <label>Due Date: </label>
-            <input type="date" name="date" value={{todoItem.date}} />
-            </br>
-            <label>Assign to User: </label>
-            <textarea style="resize:none" name="user" rows="1">{{todoItem.user}}</textarea>
-            </br>
-            <input type="submit" value="Update" />
-        </form>
-    </div>
-</body>
+{% extends 'login/base.html' %}
+
+{% block title %}Home{% endblock %}
+{% block body %}
+<div class="task-list" id="formTodo">
+    <form id=todo-form action="/editTodo/{{todoItem.id}}/" method="post">
+        {% csrf_token %}
+        <label>Title: </label>
+        <textarea style="resize:none" name="title" rows="1">{{todoItem.title}}</textarea>
+        </br>
+        <label>Description: </label>
+        <textarea name="content">{{todoItem.content}}</textarea>
+        </br>
+        <label>Due Date: </label>
+        <input type="date" name="date" value={{todoItem.date}} />
+        </br>
+        <label>Assign to User: </label>
+        <textarea style="resize:none" name="user" rows="1">{{todoItem.user}}</textarea>
+        </br>
+        <input type="submit" value="Update" />
+    </form>
+</div>
+{% endblock %}
