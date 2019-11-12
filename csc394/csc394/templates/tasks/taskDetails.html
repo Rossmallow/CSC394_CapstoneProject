@@ -1,5 +1,5 @@
 <body>
-    <div class="task-list" id="formTodo">
+    <div class="task" id="formTodo">
         <form id=todo-form action="/editTodo/{{todoItem.id}}/" method="post">{% csrf_token %}
             <label>Title: </label>
             <textarea style="resize:none" name="title" rows="1">{{todoItem.title}}</textarea>
@@ -15,5 +15,16 @@
             </br>
             <input type="submit" value="Update" />
         </form>
+    </div>
+
+    <div class="dicussion" id="formDiscussion">
+        <form id=discussion-form action="" method="post">
+            <label>Discussion:</label>
+            </br>
+            <textarea style="resize:none" name="title" rows="1" placeholder="Title"></textarea>
+            </br>
+            <textarea name="body" placebolder="Body"></textarea>
+        </form>
+
     </div>
 </body>
