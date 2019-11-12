@@ -22,13 +22,16 @@
 </div>
 
 <div class="dicussion" id="formDiscussion">
-    <form id=discussion-form action="" method="post">
-        <label>Discussion:</label>
-        </br>
+    <h3>Discussion:</h3>
+    </br>
+    <form id=discussion-form action="/tasks/{{todoItem.id}}/addComment/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="todoItem" value={{todoItem.pk}} />
         <textarea style="resize:none" name="title" rows="1" placeholder="Title"></textarea>
         </br>
         <textarea name="body" placeholder="Body"></textarea>
         </br>
+        <input type="hidden" name="user" value={{user.get_username}} />
         <input type="submit" value="Submit" />
     </form>
 </div>

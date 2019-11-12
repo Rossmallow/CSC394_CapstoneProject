@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import TodoItem
+from .models import TodoItem, Comment
 
 # Create your views here.
 
@@ -27,7 +27,7 @@ def editTodo(request, todo_id):
     item_to_edit.date = request.POST['date']
     item_to_edit.user = request.POST['user']
     item_to_edit.save()
-    return HttpResponseRedirect('/tasks/{}'.format(todo_id))
+    return HttpResponseRedirect('/tasks/{0}'.format(todo_id))
 
 
 def deleteTodo(request, todo_id):
@@ -43,3 +43,10 @@ def todoDetails(request, todo_id):
     except TodoItem.DoesNotExist:
         return HttpResponse("Task does not exist", status=404)
     return render(request, 'tasks/taskDetails.html', {'todoItem': todoItem})
+
+def addComment(request, todo_id):
+    new_item = Comment(
+        todoItem=request.POST['todoItem'], title=request.POST['title'], 
+        body=request.POST['body'], user=request.POST['user'])
+    new_item.save()
+    return HttpResponseRedirect('/tasks/{0}'.format(todo_id))
