@@ -2,5 +2,8 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-<h1 align="center">This is a dummy page. This will be the user's dashboard/homepage once we code it.</h1>
+
+<h1 align="center">Hello, {{ user.get_username }}. You currently have no tasks assigned to you. Check back later.</h1>
+
+
 {% endblock %}
