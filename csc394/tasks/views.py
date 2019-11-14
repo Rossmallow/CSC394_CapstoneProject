@@ -46,7 +46,7 @@ def todoDetails(request, todo_id):
 
 def addComment(request, todo_id):
     new_item = Comment(
-        todoItem=request.POST['todoItem'], title=request.POST['title'], 
+        todoItem=TodoItem.objects.get(id = request.POST['todoItem']), title=request.POST['title'], 
         body=request.POST['body'], user=request.POST['user'])
     new_item.save()
     return HttpResponseRedirect('/tasks/{0}'.format(todo_id))
