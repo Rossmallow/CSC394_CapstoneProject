@@ -7,6 +7,7 @@ class TodoItem(models.Model):
     title = models.TextField(default='')
     date = models.DateField(default='1999-01-13')
     user = models.TextField(default='Self')
+    status = models.TextField(default='inProgress')
 
     def __str__(self):
         return self.title + '-' + self.user
