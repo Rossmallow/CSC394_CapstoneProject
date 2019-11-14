@@ -3,7 +3,7 @@
 <h3>Course Projects</h3>
 <ul>
     {%for proj in allProj%}
-    <li><a href="/course/{{proj.id}}/">{{proj.title}}</a></li>
+    <li><a href="/course/{{course.id}}/{{proj.id}}/">{{proj.title}}</a></li>
     {% endfor %}
 </ul>
 

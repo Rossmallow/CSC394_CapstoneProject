@@ -2,7 +2,7 @@ from django.db import models
 from login.models import Course
 
 class enrolledStud(models.Model):
-    courseId = models.ForeignKey('login.Course', on_delete = models.CASCADE)
+    courseID = models.ForeignKey('login.Course', on_delete = models.CASCADE)
     studentId = models.IntegerField()
     firstName = models.CharField(max_length = 250)
     lastName = models.CharField(max_length = 250)
@@ -13,6 +13,7 @@ class Project(models.Model):
     courseId = models.ForeignKey('login.Course', on_delete = models.CASCADE)
     title = models.CharField(max_length = 100)
     members = models.ManyToManyField(enrolledStud)
+    #limit_choices_to= {'courseID' : courseId })
     startDate = models.DateField()
     endDate = models.DateField()
     def __str__(self):

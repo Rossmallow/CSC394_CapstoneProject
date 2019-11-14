@@ -18,11 +18,11 @@ def index(request):
 def coursePg(request, courseId):
     context = {
         'course' : Course.objects.get(pk = courseId),
-        'proj' : Project.objects.filter(pk = courseId)
+        'allProj' : Project.objects.filter(courseId = courseId)
     }
     return render(request, 'course/coursePg.html',context)
 
-def projPg(request, projId):
+def projPg(request, courseId, projId):
     try: 
         proj = Project.objects.get(pk = projId)
         context = {'proj' : proj}
