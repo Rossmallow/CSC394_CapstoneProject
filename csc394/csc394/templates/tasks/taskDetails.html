@@ -1,23 +1,70 @@
-{% extends 'login/base.html' %}
+<!DOCTYPE html>
+<html>
 
-{% block title %}Home{% endblock %}
-{% block body %}
-<div class="task-list" id="formTodo">
-    <form id=todo-form action="/editTodo/{{todoItem.id}}/" method="post">
-        {% csrf_token %}
-        <label>Title: </label>
-        <textarea style="resize:none" name="title" rows="1">{{todoItem.title}}</textarea>
-        </br>
-        <label>Description: </label>
-        <textarea name="content">{{todoItem.content}}</textarea>
-        </br>
-        <label>Due Date: </label>
-        <input type="date" name="date" value={{todoItem.date}} />
-        </br>
-        <label>Assign to User: </label>
-        <textarea style="resize:none" name="user" rows="1">{{todoItem.user}}</textarea>
-        </br>
-        <input type="submit" value="Update" />
-    </form>
-</div>
-{% endblock %}
+<head>
+    <style>
+        .edit-task {
+            background-color: lightblue;
+            width: 50%;
+            height: 400px;
+            margin-left: 25%;
+            margin-top: 40px;
+
+        }
+
+        .taskContent {
+            padding-left: 50px;
+            padding-top: 30px;
+        }
+
+        textarea,
+        input {
+            display: block;
+            margin: 1px 5px;
+        }
+
+        .hide-replaced.ws-inputreplace {
+            display: none !important;
+        }
+
+        .input-picker .picker-list td>button.othermonth {
+            color: #888888;
+            background: #fff;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    {% extends 'login/base.html' %}
+
+    {% block title %}Home{% endblock %}
+    {% block body %}
+    <h1 style="text-align: center; margin-top: 40px;">{{todoItem.title}}</h1>
+    <div class="edit-task" id="formTodo">
+        <div class="taskContent">
+            <form id=todo-form action="/editTodo/{{todoItem.id}}/" method="post">
+                {% csrf_token %}
+                <label>Title: </label>
+                <textarea style="resize:none" name="title" rows="1">{{todoItem.title}}</textarea>
+                </br>
+                <label>Description: </label>
+                <textarea name="content">{{todoItem.content}}</textarea>
+                </br>
+                <label>Due Date: </label>
+                <input type="date" name="date" value="{{todoItem.date}}" />
+                </br>
+                <label>Assign to User: </label>
+                <textarea style="resize:none" name="user" rows="1">{{todoItem.user}}</textarea>
+                </br>
+                <input type="submit" value="Update" />
+            </form>
+        </div>
+    </div>
+
+    {% endblock %}
+</body>
+
+</html>

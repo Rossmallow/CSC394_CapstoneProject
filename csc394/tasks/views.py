@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import TodoItem
+from .forms import TodoForm
 
 # Create your views here.
-
+def formView(request):
+    form = TodoForm()
+    return render(request, 'formview.html', {'form': form})
 
 def taskView(request):
     all_todo_items = TodoItem.objects.all()
@@ -43,3 +46,9 @@ def todoDetails(request, todo_id):
     except TodoItem.DoesNotExist:
         return HttpResponse("Task does not exist", status=404)
     return render(request, 'tasks/taskDetails.html', {'todoItem': todoItem})
+
+def completeTodo(request, todo_id):
+    completedItem = TodoItem.objects.get(id=todo_id)
+    completedItem.complete = true
+    completedItem.save()
+    return HttpResponseRedirect('/tasks/')

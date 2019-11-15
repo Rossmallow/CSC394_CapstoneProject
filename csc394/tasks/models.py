@@ -5,8 +5,9 @@ from django.db import models
 class TodoItem(models.Model):
     content = models.TextField()
     title = models.TextField(default='')
-    date = models.DateField(default='1999-01-13')
+    date = models.DateField(auto_now_add=False, auto_now=False)
     user = models.TextField(default='Self')
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title + '-' + self.user

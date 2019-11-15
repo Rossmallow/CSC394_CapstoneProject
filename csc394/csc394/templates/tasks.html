@@ -2,6 +2,14 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}D3L{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'login/style.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <style>
         html {
@@ -12,8 +20,8 @@
             width: 250px;
             float: left;
             margin-top: 50px;
-            margin-right: 5px;
-            margin-left: 5px;
+            margin-right: 80px;
+            margin-left: 150px;
             background-color: #d3d3d3;
             min-height: 240px;
             border-radius: 10px;
@@ -24,7 +32,7 @@
             width: 250px;
             float: left;
             margin-top: 50px;
-            margin-right: 5px;
+            margin-right: 80px;
             margin-left: 5px;
             background-color: #d3d3d3;
             min-height: 240px;
@@ -57,15 +65,26 @@
 
         }
 
+        #formTodo label {
+            margin-left: 8px;
+        }
+
 
         #formTodo input,
         #formTodo textarea {
             width: 220px;
-            margin: 1px 5px;
+            margin-bottom: 5px;
+            margin-left: 8px;
+            /* margin: 1px 5px; */
         }
+
 
         #formTodo input {
             height: 30px;
+        }
+
+        #formTodo input[type="submit"] {
+            margin-top: 10px;
         }
 
         .todo-task {
@@ -76,9 +95,9 @@
             padding: 5px;
         }
 
-        #formTodo input[type="button"] {
-            width: 100px;
-            margin: 5px;
+
+        .todo-task {
+            margin-left: 10px;
         }
 
         .todo-task>.task-header {
@@ -107,18 +126,88 @@
         label {
             margin-left: 5px;
         }
+
+        hr {
+            width: 80%;
+            height: 2px;
+            background-color: darkgray;
+            border: 0px black;
+        }
+
+        #popup-1 {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .popup-content {
+            position: relative;
+            padding: 20px;
+            margin: 0 auto;
+            background-color: white;
+            width: 400px;
+            top: 5vh;
+            color: black;
+        }
+
+        .popup-content label {
+            margin-left: 70px;
+        }
+
+
+        .popup-content input,
+        .popup-content textarea {
+            width: 220px;
+            margin-bottom: 5px;
+            margin-left: 70px;
+            /* margin: 1px 5px; */
+        }
+
+
+        .popup-content input {
+            height: 30px;
+        }
+
+        .popup-content input[type="submit"] {
+            margin-top: 10px;
+        }
+
+
+        .main-site {
+            padding-top: 5px;
+            width: 95%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        /* #popupform {
+            position: relative;
+            padding: 15px;
+            margin: 0 auto;
+            background-color: white;
+            width: 400px;
+            top: 5vh;
+            color: cadetblue;
+
+        } */
     </style>
     <script src="https://code.jquery.com/jquery-git.js"></script>
     <script>
         function moveRight(elem) {
+            var currDiv;
             if ($(elem).parent().attr("id") == "todo") {
                 $(elem).detach().appendTo('#inProgress');
+                elem.style.backgroundColor = 'yellow';
             }
             else if ($(elem).parent().attr("id") == "inProgress") {
                 $(elem).detach().appendTo('#completed');
+                elem.style.backgroundColor = '#9ae49a';
             }
             else if ($(elem).parent().attr("id") == "completed") {
                 $(elem).detach().appendTo('#inProgress');
+                elem.style.backgroundColor = 'yellow';
             }
             else {
                 $(elem).detach().appendTo('#todo');
@@ -126,16 +215,51 @@
         }
 
     </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 </head>
 
 <body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+
+            <!-- Header -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'login:dashboard' %}">Home</a>
+            </div>
+
+            <!-- Items -->
+            <div class="collapse navbar-collapse" id="topNavBar">
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="{% url 'login:taskview' %}">Tasks</a></li>
+                    <li class=""><a href="#">Chat</a></li>
+                    <li class=""><a href="{% url 'login:logout_user' %}">Log Out</a></li>
+                    <li class="nav navbar-nav navbar-left"><a href="#">Hello, {{ user.get_username }}.</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
     <h1>Tasks</h1>
     <div id="container">
-        <div class="task-list" id="formTodo">
+        <!-- <div class="task-list" id="formTodo">
             <h3>Add a task</h3>
-            <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
+            <button id="open-popup-1">Add a task</button> -->
+        <!-- <form action="/addTodo/" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+                </form> -->
+        <!-- <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
                 <label>Title</label>
                 <input type="text" name="title" placeholder="Title" />
                 <label>Description</label>
@@ -145,37 +269,92 @@
                 <label>Assign to User</label>
                 <input type="text" name="user" placeholder="Ada Lovelace" />
                 <input type="submit" value="Add" />
-            </form>
-        </div>
+            </form> -->
+    </div>
 
-        <div class="task-list" id="todo">
-            <h3>To Do</h3>
-            {% for todo_item in all_items%}
-            <div class="todo-task" onclick="moveRight(this)">
-                <div class="task-header">{{ todo_item.title}}
-                    <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete Task" />
-                    </form>
-                </div>
-                <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
-                <div class="task-description">{{ todo_item.content}}</div>
-                <div class="task-date">{{ todo_item.date}}
-                    <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
-                </div>
-
+    <div class="task-list" id="todo">
+        <header style="float: right; margin-right: 20px; margin-top: 10px;">
+            <p id="open-popup-1"><i style=" font-size:30px; margin-top: 10px;" class="fa">&#xf067;</i></p>
+            <!-- <button id="open-popup-1"><i style=" font-size:30px; margin-top: 10px;" class="fa">&#xf055;</i></button> -->
+            <!-- <button id="close-popup-1"><i style=" font-size:30px; margin-top: 10px;" class="fa">&#xf055;</i></button> -->
+            <!-- <button id="close-popup-1"
+                style="border-radius: 50%; border: 0px; height: 50px; width: 50px; font-size: 15px;">+</i></button> -->
+        </header>
+        <h3 style="margin-left: 70px">To Do</h3>
+        <hr>
+        {% for todo_item in all_items%}
+        <div class="todo-task" onclick="moveRight(this)" id="taskBlock">
+            <div class="task-header">{{ todo_item.title}}
+                <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete Task" />
+                </form>
             </div>
-            {% endfor %}
+            <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
+            <div class="task-description">{{ todo_item.content}}</div>
+            <div class="task-date">{{ todo_item.date}}
+                <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
+            </div>
+
         </div>
+        {% endfor %}
+    </div>
+    <div id="popup-1">
+        <div class="popup-content">
+            <header style="float: right;">
+                <button id="close-popup-1" style="border-radius: 50%; border: 0px;"><i style="font-size:24px" class="fa"
+                        id="close-popup-1">&#xf00d;</i></button>
+                <!-- <i style="font-size:24px" class="fa" id="close-popup-1">&#xf00d;</i> -->
+                <!-- <button id="close-popup-1"
+                    style="border-radius: 50%; border: 0px;">X</button> -->
+            </header>
+            <h1>Add a Task</h1>
+            <hr>
+            <!-- <button id="close-popup-1" style="border-radius: 30%; display:inline-block; border: 0px;">X</button> -->
+            <!-- <button
+                        id="close-popup-1" style="border-radius: 30%; display: inline;border: 0px;">X</button> -->
+            <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
+                <label style="margin-top: 10px;">Title</label><br>
+                <input type="text" name="title" placeholder="Title" style="margin-bottom: 15px;" /> <br>
+                <label>Description</label><br>
+                <textarea placeholder="Description" name="content" style="margin-bottom: 15px;"></textarea> <br>
+                <label>Due Date</label><br>
+                <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" style="margin-bottom: 15px;" /><br>
+                <label>Assign to User</label><br>
+                <input type="text" name="user" placeholder="Ada Lovelace" style="margin-bottom: 15px;" /><br>
+                <input type="submit" value="Add" />
+            </form>
+
+        </div>
+    </div>
+
+    <!-- <div class="main-site">
+            <button id="open-popup-1">Add a task</button>
+        </div> -->
+    <script type="text/javascript">
+        var popup1 = document.getElementById("popup-1")
+        var openPopup1 = document.getElementById("open-popup-1")
+        var closePopup1 = document.getElementById('close-popup-1')
+
+        openPopup1.addEventListener('click', () => {
+            popup1.style.display = "block";
+        })
+
+        closePopup1.addEventListener('click', () => {
+            popup1.style.display = "none";
+        })
+    </script>
 
 
-        <div class="task-list" id="inProgress">
-            <h3>In Progress</h3>
-            <div id="insideProg"></div>
-        </div>
-        <div class="task-list" id="completed">
-            <h3>Completed</h3>
-        </div>
+    <div class="task-list" id="inProgress">
+        <h3>In Progress</h3>
+        <hr>
+        <div id="insideProg"></div>
+    </div>
+    <div class="task-list" id="completed">
+        <h3>Completed</h3>
+        <hr>
+    </div>
     </div>
 </body>
 
