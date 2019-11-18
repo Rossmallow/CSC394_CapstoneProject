@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'login/style.css' %}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -30,7 +31,7 @@
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="nav navbar-nav">
                     <li class=""><a href="{% url 'login:taskview' %}">Tasks</a></li>
-                    <li class=""><a href="#">Chat</a></li>
+                    <li class=""><a href="{% url 'login:index' %}">Chat</a></li>
                     <li class=""><a href="{% url 'login:logout_user' %}">Log Out</a></li>
                     <li class="nav navbar-nav navbar-left"><a href="#">Hello, {{ user.get_username }}.</a></li>
 

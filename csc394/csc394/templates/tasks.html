@@ -1,61 +1,58 @@
-<!DOCTYPE html>
-<html>
+{% extends 'login/base.html' %}
+{% block head %}
 
-<head>
+<style>
+    html {
+        background-color: #f9f9f9;
+    }
 
-    <style>
-        html {
-            background-color: #f9f9f9;
-        }
+    #todo {
+        width: 250px;
+        float: left;
+        margin-top: 50px;
+        margin-right: 5px;
+        margin-left: 5px;
+        background-color: #d3d3d3;
+        min-height: 240px;
+        border-radius: 10px;
+        padding-bottom: 15px;
+    }
 
-        #todo {
-            width: 250px;
-            float: left;
-            margin-top: 50px;
-            margin-right: 5px;
-            margin-left: 5px;
-            background-color: #d3d3d3;
-            min-height: 240px;
-            border-radius: 10px;
-            padding-bottom: 15px;
-        }
+    #inProgress {
+        width: 250px;
+        float: left;
+        margin-top: 50px;
+        margin-right: 5px;
+        margin-left: 5px;
+        background-color: #d3d3d3;
+        min-height: 240px;
+        border-radius: 10px;
+        padding-bottom: 15px;
+    }
 
-        #inProgress {
-            width: 250px;
-            float: left;
-            margin-top: 50px;
-            margin-right: 5px;
-            margin-left: 5px;
-            background-color: #d3d3d3;
-            min-height: 240px;
-            border-radius: 10px;
-            padding-bottom: 15px;
-        }
+    #completed {
+        width: 250px;
+        float: left;
+        margin-top: 50px;
+        margin-right: 5px;
+        margin-left: 5px;
+        background-color: #d3d3d3;
+        min-height: 240px;
+        border-radius: 10px;
+        padding-bottom: 15px;
+    }
 
-        #completed {
-            width: 250px;
-            float: left;
-            margin-top: 50px;
-            margin-right: 5px;
-            margin-left: 5px;
-            background-color: #d3d3d3;
-            min-height: 240px;
-            border-radius: 10px;
-            padding-bottom: 15px;
-        }
-
-        #formTodo {
-            width: 250px;
-            float: left;
-            margin-left: 30px;
-            margin-right: 30px;
-            margin-top: 50px;
-            background-color: #adbce6;
-            min-height: 240px;
-            border-radius: 10px;
-            padding-bottom: 15px;
-
-        }
+    #formTodo {
+        width: 250px;
+        float: left;
+        margin-left: 30px;
+        margin-right: 30px;
+        margin-top: 50px;
+        background-color: #adbce6;
+        min-height: 240px;
+        border-radius: 10px;
+        padding-bottom: 15px;
+    }
 
 
         #formTodo input,
@@ -68,115 +65,117 @@
             height: 30px;
         }
 
-        .todo-task {
-            border-radius: 5px;
-            background-color: #ffffff;
-            width: 230px;
-            margin: 5px;
-            padding: 5px;
+    .todo-task {
+        border-radius: 5px;
+        background-color: #ffffff;
+        width: 230px;
+        margin: 5px;
+        padding: 5px;
+    }
+
+    #formTodo input[type="button"] {
+        width: 100px;
+        margin: 5px;
+    }
+
+    .todo-task > .task-header {
+        font-weight: bold;
+    }
+
+    .todo-task > .task-date {
+        font-size: small;
+        font-style: italic;
+    }
+
+    .todo-task > .task-description {
+        font-size: smaller;
+    }
+
+    .todo-task > .task-assignee {
+        font-size: smaller;
+    }
+
+
+    h3,
+    h1 {
+        text-align: center;
+    }
+
+    label {
+        margin-left: 5px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-git.js"></script>
+<script>
+    function moveRight(elem) {
+        if ($(elem).parent().attr("id") == "todo") {
+            $(elem).detach().appendTo('#inProgress');
         }
-
-        #formTodo input[type="button"] {
-            width: 100px;
-            margin: 5px;
+        else if ($(elem).parent().attr("id") == "inProgress") {
+            $(elem).detach().appendTo('#completed');
         }
-
-        .todo-task>.task-header {
-            font-weight: bold;
+        else if ($(elem).parent().attr("id") == "completed") {
+            $(elem).detach().appendTo('#inProgress');
         }
-
-        .todo-task>.task-date {
-            font-size: small;
-            font-style: italic;
+        else {
+            $(elem).detach().appendTo('#todo');
         }
+    }
 
-        .todo-task>.task-description {
-            font-size: smaller;
-        }
-
-        .todo-task>.task-assignee {
-            font-size: smaller;
-        }
+</script>
 
 
-        h3,
-        h1 {
-            text-align: center;
-        }
+{% endblock %}
 
-        label {
-            margin-left: 5px;
-        }
-    </style>
-    <script src="https://code.jquery.com/jquery-git.js"></script>
-    <script>
-        function moveRight(elem) {
-            if ($(elem).parent().attr("id") == "todo") {
-                $(elem).detach().appendTo('#inProgress');
-            }
-            else if ($(elem).parent().attr("id") == "inProgress") {
-                $(elem).detach().appendTo('#completed');
-            }
-            else if ($(elem).parent().attr("id") == "completed") {
-                $(elem).detach().appendTo('#inProgress');
-            }
-            else {
-                $(elem).detach().appendTo('#todo');
-            }
-        }
-
-    </script>
-
-
-</head>
-
-<body>
-    <h1>Tasks</h1>
-    <div id="container">
-        <div class="task-list" id="formTodo">
-            <h3>Add a task</h3>
-            <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
-                <label>Title</label>
-                <input type="text" name="title" placeholder="Title" />
-                <label>Description</label>
-                <textarea placeholder="Description" name="content"></textarea>
-                <label>Due Date</label>
-                <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" />
-                <label>Assign to User</label>
-                <input type="text" name="user" placeholder="Ada Lovelace" />
-                <input type="submit" value="Add" />
-            </form>
-        </div>
-
-        <div class="task-list" id="todo">
-            <h3>To Do</h3>
-            {% for todo_item in all_items%}
-            <div class="todo-task" onclick="moveRight(this)">
-                <div class="task-header">{{ todo_item.title}}
-                    <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Delete Task" />
-                    </form>
-                </div>
-                <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
-                <div class="task-description">{{ todo_item.content}}</div>
-                <div class="task-date">{{ todo_item.date}}
-                    <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
-                </div>
-
-            </div>
-            {% endfor %}
-        </div>
-
-
-        <div class="task-list" id="inProgress">
-            <h3>In Progress</h3>
-            <div id="insideProg"></div>
-        </div>
-        <div class="task-list" id="completed">
-            <h3>Completed</h3>
-        </div>
+{% block body %}
+<h1>Tasks</h1>
+<div id="container">
+    <div class="task-list" id="formTodo">
+        <h3>Add a task</h3>
+        <form id=todo-form action="/addTodo/" method="post">
+            {% csrf_token %}
+            <label>Title</label>
+            <input type="text" name="title" placeholder="Title" />
+            <label>Description</label>
+            <textarea placeholder="Description" name="content"></textarea>
+            <label>Due Date</label>
+            <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" />
+            <label>Assign to User</label>
+            <input type="text" name="user" placeholder="Ada Lovelace" />
+            <input type="submit" value="Add" />
+        </form>
     </div>
-</body>
 
-</html>
+    <div class="task-list" id="todo">
+        <h3>To Do</h3>
+        {% for todo_item in all_items%}
+        <div class="todo-task" onclick="moveRight(this)">
+            <div class="task-header">
+                {{ todo_item.title}}
+                <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete Task" />
+                </form>
+            </div>
+            <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
+            <div class="task-description">{{ todo_item.content}}</div>
+            <div class="task-date">
+                {{ todo_item.date}}
+                <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="task-list" id="inProgress">
+        <h3>In Progress</h3>
+        <div id="insideProg"></div>
+    </div>
+    <div class="task-list" id="completed">
+        <h3>Completed</h3>
+    </div>
+</div>
+{% endblock %}
+

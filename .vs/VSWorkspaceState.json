@@ -3,8 +3,9 @@
     "",
     "\\csc394",
     "\\csc394\\csc394",
-    "\\csc394\\csc394\\__pycache__"
+    "\\csc394\\csc394\\templates\\login",
+    "\\csc394\\csc394\\templates\\tasks"
   ],
-  "SelectedNode": "\\csc394\\db.sqlite3",
+  "SelectedNode": "\\csc394\\csc394\\templates",
   "PreviewInSolutionExplorer": false
 }
