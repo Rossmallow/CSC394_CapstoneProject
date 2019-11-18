@@ -5,9 +5,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.views import generic
 from django.views.generic import View
-from .forms import UserForm
+from .forms import UserForm, newsForm
 from tasks.views import taskView
-from tasks.models import TodoItem
+from tasks.models import TodoItem 
+from .models import newsItem
 # Create your views here.
 
 def login_index(request):
@@ -59,7 +60,21 @@ def dashboard(request):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
     queryset = TodoItem.objects.all()
+    form = newsForm(request.POST or None)
+    if form.is_valid():
+        form.save()
     context = {
-        "object_list":queryset
+        "object_list":queryset,
+        "newsItems" : newsItem.objects.all(),
+        "form":form,
         }
-    return render(request,'login/dashboard.html')
+    return render(request,'login/dashboard.html', context)
+
+def createNews(request):
+    form = newsForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+    context = {
+        "form": form,
+    }
+    return render(request, 'login/createNews.html', context)
