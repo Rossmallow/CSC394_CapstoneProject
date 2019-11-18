@@ -2,9 +2,10 @@
 <html>
 
 <head>
+
     <style>
         html {
-            background-color: #add8e6;
+            background-color: #f9f9f9;
         }
 
         #todo {
@@ -13,7 +14,7 @@
             margin-top: 50px;
             margin-right: 5px;
             margin-left: 5px;
-            background-color: #e6d8ad;
+            background-color: #d3d3d3;
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
@@ -25,7 +26,7 @@
             margin-top: 50px;
             margin-right: 5px;
             margin-left: 5px;
-            background-color: #e6bbad;
+            background-color: #d3d3d3;
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
@@ -93,6 +94,10 @@
             font-size: smaller;
         }
 
+        .todo-task>.task-assignee {
+            font-size: smaller;
+        }
+
 
         h3,
         h1 {
@@ -103,67 +108,74 @@
             margin-left: 5px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-git.js"></script>
+    <script>
+        function moveRight(elem) {
+            if ($(elem).parent().attr("id") == "todo") {
+                $(elem).detach().appendTo('#inProgress');
+            }
+            else if ($(elem).parent().attr("id") == "inProgress") {
+                $(elem).detach().appendTo('#completed');
+            }
+            else if ($(elem).parent().attr("id") == "completed") {
+                $(elem).detach().appendTo('#inProgress');
+            }
+            else {
+                $(elem).detach().appendTo('#todo');
+            }
+        }
+
+    </script>
 
 
 </head>
 
 <body>
     <h1>Tasks</h1>
-
-    <div class="task-list" id="formTodo">
-        <h3>Add a task</h3>
-        <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
-            <label>Title</label>
-            <input type="text" name="title" placeholder="Title" />
-            <label>Description</label>
-            <textarea placeholder="Description" name="content"></textarea>
-            <!-- <input type="text" name="content" placeholder="description" /> -->
-            <label>Due Date</label>
-            <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" />
-            <input type="submit" value="Add" />
-        </form>
-        <!-- <form id="todo-form">
-                <input type="text" placeholder="Title" />
-                <textarea placeholder="Description"></textarea>
-                <input type="date" placeholder=" Due Date (mm/dd/yyyy)" />
-                <input type="button" class="btn btn=primary" value="Add Task" onclick="addItem();" />
-            </form> -->
-    </div>
-
-    <div class="task-list" id="todo">
-        <h3>To Do</h3>
-        {% for todo_item in all_items%}
-        <div class="todo-task">
-            <div class="task-header">{{ todo_item.title}}
-                <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Delete Task" />
-                </form>
-            </div>
-            <div class="task-description">{{ todo_item.content}}</div>
-            <div class="task-date">{{ todo_item.date}}
-                <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
-            </div>
+    <div id="container">
+        <div class="task-list" id="formTodo">
+            <h3>Add a task</h3>
+            <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
+                <label>Title</label>
+                <input type="text" name="title" placeholder="Title" />
+                <label>Description</label>
+                <textarea placeholder="Description" name="content"></textarea>
+                <label>Due Date</label>
+                <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" />
+                <label>Assign to User</label>
+                <input type="text" name="user" placeholder="Ada Lovelace" />
+                <input type="submit" value="Add" />
+            </form>
         </div>
-        {% endfor %}
-    </div>
+
+        <div class="task-list" id="todo">
+            <h3>To Do</h3>
+            {% for todo_item in all_items%}
+            <div class="todo-task" onclick="moveRight(this)">
+                <div class="task-header">{{ todo_item.title}}
+                    <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete Task" />
+                    </form>
+                </div>
+                <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
+                <div class="task-description">{{ todo_item.content}}</div>
+                <div class="task-date">{{ todo_item.date}}
+                    <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
 
 
-    <div class="task-list" id="inProgress">
-        <h3>In Progress</h3>
-        <!-- {% for todo_item in all_items %}
-        <ul>
-            <li>
-                {{ todo_item.title}} - {{ todo_item.content}}
-                <form action="/deleteTodo/{{todo_item.id}}/" style="display:inline;" method="post">{% csrf_token %}
-                    <input type="submit" value="Delete Task" />
-                </form>
-            </li>
-        </ul>
-        {% endfor %} -->
-    </div>
-    <div class="task-list" id="completed">
-        <h3>Completed</h3>
+        <div class="task-list" id="inProgress">
+            <h3>In Progress</h3>
+            <div id="insideProg"></div>
+        </div>
+        <div class="task-list" id="completed">
+            <h3>Completed</h3>
+        </div>
     </div>
 </body>
 
