@@ -75,8 +75,7 @@ def dashboard(request):
         form.save()
         form = newsForm()
     context = {
-        "newsItems" : newsItem.objects.all(),
-        #"seenItems" : newsItem.objects.filter(viewed = True),
+        "newsItems" : newsItem.objects.all().order_by('-created_at'),
         "form":form,
         }
     return render(request,'login/dashboard.html', context)
