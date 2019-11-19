@@ -150,7 +150,7 @@
 
         <div class="task-list" id="todo">
             <h3>To Do</h3>
-            {% for todo_item in all_items%}
+            {% for todo_item in all_items %}
             <div class="todo-task" onclick="moveRight(this)">
                 <div class="task-header">{{ todo_item.title}}
                     <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
