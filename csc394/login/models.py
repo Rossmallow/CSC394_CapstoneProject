@@ -1,4 +1,4 @@
-sfrom django.db import models
+from django.db import models
 from tasks.models import TodoItem
 from django.contrib.auth.models import User
 
