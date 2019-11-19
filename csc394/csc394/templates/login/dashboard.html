@@ -5,13 +5,15 @@
 
 <h1 align="center">Hello, {{ user.get_username }}</h1>
 <h2 align="center">Welcome back!</h2>
+
 {% if newsItems %}
 <h3>Your News Items:</h3>
 <ul style="list-style-type:none;">
     {%for news in newsItems%}
     <li>
         <article class=news>
-            <h4>{{news.subject }} </h4>
+            <h4>{{news.subject }}
+                {%if news.relatedItem %} on {{news.relatedItem}} {%endif%}</h4>
             <article class=subNews>
                 <b1><b>Posted by {{news.creator}} at {{news.created_at}}</b></b1>
             </article>
@@ -28,12 +30,11 @@
 <h3>You have no news to display</h3>
 {%endif%}
 
-
-{% endblock %}
-
-{% block content %}
+<h3>Create new news item:</h3>
 <form method='POST'> {%csrf_token%}
     {{ form.as_p }}
-    <input type='submit' value='Save' />
+    <input type='submit' value='Post' />
 </form>
+
+
 {% endblock %}
