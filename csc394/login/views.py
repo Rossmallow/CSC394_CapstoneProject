@@ -8,6 +8,7 @@ from django.views.generic import View
 from .forms import UserForm
 from tasks.views import taskView
 from tasks.models import TodoItem
+from chat.views import index
 # Create your views here.
 
 def login_index(request):
