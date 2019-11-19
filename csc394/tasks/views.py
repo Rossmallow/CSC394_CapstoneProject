@@ -76,7 +76,7 @@ def editComment(request, todo_id, comment_id):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
 
-    item_to_edit = TodoItem.objects.get(id=comment_id)
+    item_to_edit = Comment.objects.get(id=comment_id)
     item_to_edit.title = request.POST['title']
     item_to_edit.body = request.POST['body']
     item_to_edit.user = request.POST['user']
