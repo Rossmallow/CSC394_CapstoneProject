@@ -4,10 +4,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login 
 from django.contrib.auth import logout
 from django.views import generic
-from django.views.generic import View
-from .forms import UserForm
+from django.views.generic import View, CreateView
+from .forms import UserForm, newsForm
 from tasks.views import taskView
-from tasks.models import TodoItem
+from tasks.models import TodoItem 
+from .models import newsItem
+from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 def login_index(request):
@@ -54,12 +57,26 @@ def register(request):
         "form": form,
     }
     return render(request, 'login/registration.html', context)
-   
+
+class AuthorCreate(LoginRequiredMixin, FormView):
+    model = newsItem
+    form_class = newsForm
+    template_name = 'login/dashboard.html'
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
 def dashboard(request):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
-    queryset = TodoItem.objects.all()
+    form = newsForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = newsForm()
     context = {
-        "object_list":queryset
+        "newsItems" : newsItem.objects.all().order_by('-created_at'),
+        "form":form,
         }
-    return render(request,'login/dashboard.html')
+    return render(request,'login/dashboard.html', context)
+

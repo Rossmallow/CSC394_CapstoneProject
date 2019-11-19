@@ -12,12 +12,37 @@
         <textarea name="content">{{todoItem.content}}</textarea>
         </br>
         <label>Due Date: </label>
-        <input type="date" name="date" value={{todoItem.date}} />
+        <input type="date" name="date" value="{{todoItem.date|date:'Y-m-d'}}" />
         </br>
         <label>Assign to User: </label>
-        <textarea style="resize:none" name="user" rows="1">{{todoItem.user}}</textarea>
+        <textarea style=" resize:none" name="user" rows="1">{{todoItem.user}}</textarea>
         </br>
         <input type="submit" value="Update" />
+    </form>
+</div>
+
+<div class="dicussion" id="formDiscussion">
+    <h3>Discussion:</h3>
+    </br>
+    {% for comment in comments %}
+    <div class="comment-title">Title: {{ comment.title }}</div>
+    <div class="comment-body">Body: {{ comment.body}}</div>
+    <div class="comment-user">User: {{ comment.user}}</div>
+    <form action="/tasks/{{todoItem.id}}/deleteComment/{{comment.id}}/" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete Comment" />
+    </form>
+    </br>
+    {% endfor %}
+    <form id=discussion-form action="/tasks/{{todoItem.id}}/addComment/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="todoItem" value={{todoItem.pk}} />
+        <textarea style="resize:none" name="title" rows="1" placeholder="Title"></textarea>
+        </br>
+        <textarea name="body" placeholder="Body"></textarea>
+        </br>
+        <input type="hidden" name="user" value={{user.get_username}} />
+        <input type="submit" value="Submit" />
     </form>
 </div>
 {% endblock %}
