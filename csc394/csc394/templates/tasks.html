@@ -181,40 +181,9 @@
             max-width: 960px;
             margin: 0 auto;
         }
-
-        /* #popupform {
-            position: relative;
-            padding: 15px;
-            margin: 0 auto;
-            background-color: white;
-            width: 400px;
-            top: 5vh;
-            color: cadetblue;
-
-        } */
     </style>
     <script src="https://code.jquery.com/jquery-git.js"></script>
-    <script>
-        function moveRight(elem) {
-            var currDiv;
-            if ($(elem).parent().attr("id") == "todo") {
-                $(elem).detach().appendTo('#inProgress');
-                elem.style.backgroundColor = 'yellow';
-            }
-            else if ($(elem).parent().attr("id") == "inProgress") {
-                $(elem).detach().appendTo('#completed');
-                elem.style.backgroundColor = '#9ae49a';
-            }
-            else if ($(elem).parent().attr("id") == "completed") {
-                $(elem).detach().appendTo('#inProgress');
-                elem.style.backgroundColor = 'yellow';
-            }
-            else {
-                $(elem).detach().appendTo('#todo');
-            }
-        }
 
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -250,40 +219,15 @@
         </div>
     </nav>
     <h1>Tasks</h1>
-    <div id="container">
-        <!-- <div class="task-list" id="formTodo">
-            <h3>Add a task</h3>
-            <button id="open-popup-1">Add a task</button> -->
-        <!-- <form action="/addTodo/" method="post">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Submit">
-                </form> -->
-        <!-- <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
-                <label>Title</label>
-                <input type="text" name="title" placeholder="Title" />
-                <label>Description</label>
-                <textarea placeholder="Description" name="content"></textarea>
-                <label>Due Date</label>
-                <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" />
-                <label>Assign to User</label>
-                <input type="text" name="user" placeholder="Ada Lovelace" />
-                <input type="submit" value="Add" />
-            </form> -->
-    </div>
 
     <div class="task-list" id="todo">
         <header style="float: right; margin-right: 20px; margin-top: 10px;">
             <p id="open-popup-1"><i style=" font-size:30px; margin-top: 10px;" class="fa">&#xf067;</i></p>
-            <!-- <button id="open-popup-1"><i style=" font-size:30px; margin-top: 10px;" class="fa">&#xf055;</i></button> -->
-            <!-- <button id="close-popup-1"><i style=" font-size:30px; margin-top: 10px;" class="fa">&#xf055;</i></button> -->
-            <!-- <button id="close-popup-1"
-                style="border-radius: 50%; border: 0px; height: 50px; width: 50px; font-size: 15px;">+</i></button> -->
         </header>
         <h3 style="margin-left: 70px">To Do</h3>
         <hr>
-        {% for todo_item in all_items%}
-        <div class="todo-task" onclick="moveRight(this)" id="taskBlock">
+        {% for todo_item in todo%}
+        <div class="todo-task" id="taskBlock">
             <div class="task-header">{{ todo_item.title}}
                 <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
                     {% csrf_token %}
@@ -295,6 +239,12 @@
             <div class="task-date">{{ todo_item.date}}
                 <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
             </div>
+            <form action='/changeStatus/{{todo_item.id}}/' method="post">
+                {% csrf_token %}
+                <button type='submit'> Working on it</button>
+                <input type="hidden" value="inProgress" name="status" />
+            </form>
+
 
         </div>
         {% endfor %}
@@ -304,15 +254,9 @@
             <header style="float: right;">
                 <button id="close-popup-1" style="border-radius: 50%; border: 0px;"><i style="font-size:24px" class="fa"
                         id="close-popup-1">&#xf00d;</i></button>
-                <!-- <i style="font-size:24px" class="fa" id="close-popup-1">&#xf00d;</i> -->
-                <!-- <button id="close-popup-1"
-                    style="border-radius: 50%; border: 0px;">X</button> -->
             </header>
             <h1>Add a Task</h1>
             <hr>
-            <!-- <button id="close-popup-1" style="border-radius: 30%; display:inline-block; border: 0px;">X</button> -->
-            <!-- <button
-                        id="close-popup-1" style="border-radius: 30%; display: inline;border: 0px;">X</button> -->
             <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
                 <label style="margin-top: 10px;">Title</label><br>
                 <input type="text" name="title" placeholder="Title" style="margin-bottom: 15px;" /> <br>
@@ -327,10 +271,6 @@
 
         </div>
     </div>
-
-    <!-- <div class="main-site">
-            <button id="open-popup-1">Add a task</button>
-        </div> -->
     <script type="text/javascript">
         var popup1 = document.getElementById("popup-1")
         var openPopup1 = document.getElementById("open-popup-1")
@@ -350,10 +290,57 @@
         <h3>In Progress</h3>
         <hr>
         <div id="insideProg"></div>
+        {% for items in inProgress%}
+        <div class="todo-task" id="taskBlock">
+            <div class="task-header">{{ items.title}}
+                <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete Task" />
+                </form>
+            </div>
+            <div class="task-assignee">Assigned to: {{ items.user }}</div>
+            <div class="task-description">{{ items.content}}</div>
+            <div class="task-date">{{ items.date}}
+                <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
+            </div>
+            <form action='/changeStatus/{{items.id}}/' method="post">
+                {% csrf_token %}
+                <button type='submit'> Back</i></button>
+                <input type="hidden" value="todo" name="status" />
+            </form>
+            <form action='/changeStatus/{{items.id}}/' method="post">
+                {% csrf_token %}
+                <button type='submit'>Completed</button>
+                <input type="hidden" value="completed" name="status" />
+            </form>
+
+        </div>
+        {% endfor %}
     </div>
     <div class="task-list" id="completed">
         <h3>Completed</h3>
         <hr>
+        {% for items in completed%}
+        <div class="todo-task" id="taskBlock">
+            <div class="task-header">{{ items.title}}
+                <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete Task" />
+                </form>
+            </div>
+            <div class="task-assignee">Assigned to: {{ items.user }}</div>
+            <div class="task-description">{{ items.content}}</div>
+            <div class="task-date">{{ items.date}}
+                <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
+            </div>
+            <form action='/changeStatus/{{items.id}}/' method="post">
+                {% csrf_token %}
+                <button type='submit'> Didn't Finish</button>
+                <input type="hidden" value="inProgress" name="status" />
+            </form>
+
+        </div>
+        {% endfor %}
     </div>
     </div>
 </body>

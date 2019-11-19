@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tasks.views import taskView, addTodo, editTodo, deleteTodo, todoDetails, formView
+from tasks.views import taskView, addTodo, editTodo, deleteTodo, todoDetails, formView, changeStatus
 
 
 urlpatterns = [
@@ -29,4 +29,5 @@ urlpatterns = [
     path('tasks/<int:todo_id>/', todoDetails),
     path('reviews/',include('reviews.urls')),
     path('formView/', formView),
+    path('changeStatus/<int:todo_id>/', changeStatus),
 ]

@@ -9,9 +9,12 @@ def formView(request):
     return render(request, 'formview.html', {'form': form})
 
 def taskView(request):
-    all_todo_items = TodoItem.objects.all()
+    todo_items = TodoItem.objects.filter(status="todo")
+    todo_inProgress = TodoItem.objects.filter(status="inProgress")
+    todo_completed = TodoItem.objects.filter(status="completed")
+
     return render(request, 'tasks.html',
-                  {'all_items': all_todo_items})
+                  {'todo': todo_items, 'inProgress': todo_inProgress, 'completed': todo_completed})
 
 
 def addTodo(request):
@@ -51,4 +54,10 @@ def completeTodo(request, todo_id):
     completedItem = TodoItem.objects.get(id=todo_id)
     completedItem.complete = true
     completedItem.save()
+    return HttpResponseRedirect('/tasks/')
+
+def changeStatus(request, todo_id):
+    todo_itemStatus = TodoItem.objects.get(id=todo_id)
+    todo_itemStatus.status = request.POST['status']
+    todo_itemStatus.save()
     return HttpResponseRedirect('/tasks/')
