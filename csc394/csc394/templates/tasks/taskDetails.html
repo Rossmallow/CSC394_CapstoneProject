@@ -25,22 +25,36 @@
     <h3>Discussion:</h3>
     </br>
     {% for comment in comments %}
-    <div class="comment-title">Title: {{ comment.title }}</div>
-    <div class="comment-body">Body: {{ comment.body}}</div>
-    <div class="comment-user">User: {{ comment.user}}</div>
+    <form id=todo-form action="/tasks/{{todoItem.id}}/editComment/{{comment.id}}/" method="post">
+        {% csrf_token %}
+        <label>Title: </label>
+        <textarea style="resize:none" name="title" rows="1">{{ comment.title }}</textarea>
+        </br>
+        <label>Body: </label>
+        <textarea name="body">{{ comment.body}}</textarea>
+        </br>
+        <label>Author: </label>
+        <textarea style=" resize:none" name="user" rows="1">{{ comment.user}}</textarea>
+        </br>
+        <input type="submit" value="Update" />
+    </form>
     <form action="/tasks/{{todoItem.id}}/deleteComment/{{comment.id}}/" method="post">
         {% csrf_token %}
         <input type="submit" value="Delete Comment" />
     </form>
     </br>
     {% endfor %}
+    <h3>New Comment:</h3>
     <form id=discussion-form action="/tasks/{{todoItem.id}}/addComment/" method="post">
         {% csrf_token %}
+        <label>Title: </label>
         <input type="hidden" name="todoItem" value={{todoItem.pk}} />
         <textarea style="resize:none" name="title" rows="1" placeholder="Title"></textarea>
         </br>
+        <label>Body: </label>
         <textarea name="body" placeholder="Body"></textarea>
         </br>
+        <label>Author: </label>
         <input type="hidden" name="user" value={{user.get_username}} />
         <input type="submit" value="Submit" />
     </form>
