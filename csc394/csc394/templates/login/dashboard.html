@@ -3,7 +3,38 @@
 
 {% block body %}
 
-<h1 align="center">Hello, {{ user.get_username }}. You currently have no tasks assigned to you. Check back later.</h1>
+<h1 align="center">Hello, {{ user.get_username }}</h1>
+<h2 align="center">Welcome back!</h2>
+
+{% if newsItems %}
+<h3>Your News Items:</h3>
+<ul style="list-style-type:none;">
+    {%for news in newsItems%}
+    <li>
+        <article class=news>
+            <h4>{{news.subject }}
+                {%if news.relatedItem %} on {{news.relatedItem}} {%endif%}</h4>
+            <article class=subNews>
+                <b1><b>Posted by {{news.creator}} at {{news.created_at}}</b></b1>
+            </article>
+            <article class=subNews>
+                <p>{{news.body}}</p>
+            </article>
+        </article>
+        <br>
+    </li>
+    {%endfor%}
+</ul>
+
+{% else %}
+<h3>You have no news to display</h3>
+{%endif%}
+
+<h3>Create new news item:</h3>
+<form method='POST'> {%csrf_token%}
+    {{ form.as_p }}
+    <input type='submit' value='Post' />
+</form>
 
 
 {% endblock %}
