@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from tasks.views import taskView, addTodo, editTodo, deleteTodo, todoDetails
+from tasks.views import taskView, addTodo, editTodo, deleteTodo, todoDetails, addComment, deleteComment
 
 
 urlpatterns = [
@@ -27,5 +27,7 @@ urlpatterns = [
     path('editTodo/<int:todo_id>/', editTodo),
     path('deleteTodo/<int:todo_id>/', deleteTodo),
     path('tasks/<int:todo_id>/', todoDetails),
-    path('reviews/',include('reviews.urls'))
+    path('reviews/',include('reviews.urls')),
+    path('tasks/<int:todo_id>/addComment/', addComment),
+    path('tasks/<int:todo_id>/deleteComment/<int:comment_id>/', deleteComment)
 ]
