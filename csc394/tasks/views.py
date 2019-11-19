@@ -72,6 +72,9 @@ def addComment(request, todo_id):
     new_item.save()
     return HttpResponseRedirect('/tasks/{0}'.format(todo_id))
 
+def editComment(request, todo_id, comment_id):
+    return HttpResponseRedirect('/tasks/{0}'.format(todo_id))
+
 def deleteComment(request, todo_id, comment_id):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
