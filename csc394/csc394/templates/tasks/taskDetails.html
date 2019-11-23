@@ -4,11 +4,14 @@
 <head>
     <style>
         .edit-task {
-            background-color: lightblue;
-            width: 50%;
-            height: 400px;
-            margin-left: 25%;
-            margin-top: 40px;
+            background-color: #cccccc;
+            width: 30%;
+            height: 425px;
+            margin: auto;
+            border-radius: 25px;
+            box-shadow: 5px 10px 18px #888888;
+            /* margin-left: 25%;
+            margin-top: 40px; */
 
         }
 
@@ -17,11 +20,11 @@
             padding-top: 30px;
         }
 
-        textarea,
+        /* textarea,
         input {
             display: block;
             margin: 1px 5px;
-        }
+        } */
 
         .hide-replaced.ws-inputreplace {
             display: none !important;
@@ -31,11 +34,39 @@
             color: #888888;
             background: #fff;
         }
+
+        #todo-form>label {
+            margin-left: 60px;
+            margin-bottom: 10px;
+        }
+
+        #todo-form>input {
+            margin-left: 60px;
+            /* margin-bottom: 50px; */
+            display: block;
+        }
+
+        #todo-form>textarea {
+            margin-left: 60px;
+            /* margin-bottom: 50px; */
+            display: block;
+        }
+
+        #todo-form>input[type=submit] {
+            margin-left: 80px;
+            background-color: #4C7FB2;
+            border: 1px solid black;
+            font-size: medium;
+            height: 50px;
+            width: 90px;
+            border-radius: 20px;
+            color: white;
+        }
     </style>
 
 </head>
 
-<body>
+<body style="height: 100vh; background: linear-gradient(to bottom, #a9a9a9 0%, #4C7FB2 100%)">
 
 
     {% extends 'login/base.html' %}
