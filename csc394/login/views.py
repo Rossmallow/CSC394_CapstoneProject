@@ -9,6 +9,7 @@ from .forms import UserForm
 from tasks.views import taskView
 from tasks.models import TodoItem
 from chat.views import index
+from django.shortcuts import redirect
 # Create your views here.
 
 def login_index(request):
@@ -23,7 +24,8 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request, 'login/dashboard.html')
+                response = redirect('/dashboard/')
+                return response
             else:
                 return render(request, 'login/signin.html', {'error_message': 'Your account has been disabled'})
         else:
@@ -50,7 +52,8 @@ def register(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return render(request, 'login/dashboard.html')
+                response = redirect('/dashboard/')
+                return response
     context = {
         "form": form,
     }

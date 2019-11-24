@@ -32,10 +32,11 @@
                 <ul class="nav navbar-nav">
                     <li class=""><a href="{% url 'login:taskview' %}">Tasks</a></li>
                     <li class=""><a href="{% url 'login:index' %}">Chat</a></li>
-                    <li class=""><a href="{% url 'login:logout_user' %}">Log Out</a></li>
-                    <li class="nav navbar-nav navbar-left"><a href="#">Hello, {{ user.get_username }}.</a></li>
-
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="navbar-text">Hello, {{ user.get_username }}.</a></li>
+                    <li><a href="{% url 'login:logout_user' %}"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+                 </ul>
             </div>
 
         </div>
