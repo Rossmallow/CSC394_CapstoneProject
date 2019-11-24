@@ -1,6 +1,6 @@
 # Credits
 
-This project was created by:
+**This project was created by:**
 - [Rodolfo Hernandez-Noria](mailto:RHERNA70@mail.depaul.edu)
 - [Kyle Mastrangeli](https://github.com/kylem164)
 - [Genevive Myers](https://github.com/genevievemmyers)
@@ -9,16 +9,16 @@ This project was created by:
 - [Miranda Shelton](https://github.com/Mirandashelt)
 - [Jonathan Smajo](mailto:jnsmajoj@gmail.com)
 
-This project is our Capstone project for CSC394 at DePaul University's College of Computing and Digital Media.
+This project is our Capstone project for CSC394 at [DePaul University's College of Computing and Digital Media](https://www.cdm.depaul.edu/).
 
 # Tutorial
 
 **What you will need to run the project:**
 - [Python 3.6](https://www.python.org/)
 - [Pip 9.0.1](https://pypi.org/project/pip/)
-- [Git 2.17](https://git-scm.com/)
-- [Django 2.2.7](https://www.djangoproject.com/)
 - [Channnels 2.3.1](https://channels.readthedocs.io/en/latest/)
+- [Django 2.2.7](https://www.djangoproject.com/)
+- [Git 2.17](https://git-scm.com/)
 
 **Notes:**
 - This tutorial assumes that you are using a Linux-based operating system. If you are using Windows 10, you can install the Ubuntu subsystem by following [this](https://docs.microsoft.com/en-us/windows/wsl/install-win10) tutorial. After completing that installation, you should then be able to follow this tutorial.
@@ -44,7 +44,7 @@ At this point you should have Channels and Django installed. Now we need to inst
 **3. Cloning the project**
 
 Once you have Git installed you will clone this project to your system.
-- Navigate to a directory on your system, using `cd` on the command line, that you want to clone this project to. Once there, type `git clone https://github.com/Mirandashelt/Capstone.git` to clone our project. If you have trouble with this, consult [this](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository) tutorial.
+- Navigate to a directory on your system (using `cd` on the command line) that you want to clone this project to. Once there, type `git clone https://github.com/Mirandashelt/Capstone.git` to clone our project. If you have trouble with this, consult [this](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository) tutorial.
 - Now that the project has been cloned, when you type `ls` you should see the `Capstone` directory in your current directory. If you do not see it, you should retry the cloning process and consult the tutorial.
     - Confirm that you are on the master branch by typing `cd Capstone && git checkout`. The following message should be printed: `Your branch is up to date with 'origin/master'.`.
     - If, while using the project or editing it's code, you break it, return to the direcory you cloned the project into by using `cd ..`. When, after typing `ls`, you see the directory `Capstone`, type `rm -rf Capstone` to delete it. Then, reclone it using the steps above.
