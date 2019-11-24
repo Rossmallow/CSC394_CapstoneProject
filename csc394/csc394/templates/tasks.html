@@ -55,15 +55,15 @@
     }
 
 
-        #formTodo input,
-        #formTodo textarea {
-            width: 220px;
-            margin: 1px 5px;
-        }
+    #formTodo input,
+    #formTodo textarea {
+        width: 220px;
+        margin: 1px 5px;
+    }
 
-        #formTodo input {
-            height: 30px;
-        }
+    #formTodo input {
+        height: 30px;
+    }
 
     .todo-task {
         border-radius: 5px;
@@ -78,20 +78,20 @@
         margin: 5px;
     }
 
-    .todo-task > .task-header {
+    .todo-task>.task-header {
         font-weight: bold;
     }
 
-    .todo-task > .task-date {
+    .todo-task>.task-date {
         font-size: small;
         font-style: italic;
     }
 
-    .todo-task > .task-description {
+    .todo-task>.task-description {
         font-size: smaller;
     }
 
-    .todo-task > .task-assignee {
+    .todo-task>.task-assignee {
         font-size: smaller;
     }
 
@@ -125,57 +125,71 @@
 </script>
 
 
-{% endblock %}
+</head>
 
-{% block body %}
-<h1>Tasks</h1>
-<div id="container">
-    <div class="task-list" id="formTodo">
-        <h3>Add a task</h3>
-        <form id=todo-form action="/addTodo/" method="post">
-            {% csrf_token %}
-            <label>Title</label>
-            <input type="text" name="title" placeholder="Title" />
-            <label>Description</label>
-            <textarea placeholder="Description" name="content"></textarea>
-            <label>Due Date</label>
-            <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" />
-            <label>Assign to User</label>
-            <input type="text" name="user" placeholder="Ada Lovelace" />
-            <input type="submit" value="Add" />
-        </form>
-    </div>
-
-    <div class="task-list" id="todo">
-        <h3>To Do</h3>
-        {% for todo_item in all_items%}
-        <div class="todo-task" onclick="moveRight(this)">
-            <div class="task-header">
-                {{ todo_item.title}}
-                <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Delete Task" />
-                </form>
-            </div>
-            <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
-            <div class="task-description">{{ todo_item.content}}</div>
-            <div class="task-date">
-                {{ todo_item.date}}
-                <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
-            </div>
-
+<body>
+    <h1>Tasks</h1>
+    <div id="container">
+        <div class="task-list" id="formTodo">
+            <h3>Add a task</h3>
+            <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
+                <label>Title</label>
+                <input type="text" name="title" placeholder="Title" />
+                <label>Description</label>
+                <textarea placeholder="Description" name="content"></textarea>
+                <label>Due Date</label>
+                <input type="date" name="date" placeholder=" Due Date (yyyy-mm-dd)" />
+                <label>Assign to User</label>
+                <input type="text" name="user" placeholder="Ada Lovelace" />
+                <input type="submit" value="Add" />
+            </form>
         </div>
-        {% endfor %}
-    </div>
+
+        <div class="task-list" id="todo">
+            <h3>To Do</h3>
+            {% for todo_item in all_items %}
+            <div class="todo-task" onclick="moveRight(this)">
+                <div class="task-header">{{ todo_item.title}}
+                    <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete Task" />
+                    </form>
+                </div>
+                <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
+                <div class="task-description">{{ todo_item.content}}</div>
+                <div class="task-date">{{ todo_item.date}}
+                    <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
+                </div>
+
+                <div class="task-list" id="todo">
+                    <h3>To Do</h3>
+                    {% for todo_item in all_items%}
+                    <div class="todo-task" onclick="moveRight(this)">
+                        <div class="task-header">
+                            {{ todo_item.title}}
+                            <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Delete Task" />
+                            </form>
+                        </div>
+                        <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
+                        <div class="task-description">{{ todo_item.content}}</div>
+                        <div class="task-date">
+                            {{ todo_item.date}}
+                            <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                </div>
 
 
-    <div class="task-list" id="inProgress">
-        <h3>In Progress</h3>
-        <div id="insideProg"></div>
-    </div>
-    <div class="task-list" id="completed">
-        <h3>Completed</h3>
-    </div>
-</div>
-{% endblock %}
-
+                <div class="task-list" id="inProgress">
+                    <h3>In Progress</h3>
+                    <div id="insideProg"></div>
+                </div>
+                <div class="task-list" id="completed">
+                    <h3>Completed</h3>
+                </div>
+            </div>
+            {% endblock %}

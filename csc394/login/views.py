@@ -1,20 +1,22 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login 
+from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.views import generic
-from django.views.generic import View
-from .forms import UserForm
+from django.views.generic import View, CreateView
+from .forms import UserForm, newsForm
 from tasks.views import taskView
 from tasks.models import TodoItem
 from chat.views import index
 from django.shortcuts import redirect
 # Create your views here.
 
+
 def login_index(request):
 
     return render(request, 'login/index.html')
+
 
 def login_user(request):
     if request.method == "POST":
@@ -32,6 +34,7 @@ def login_user(request):
             return render(request, 'login/signin.html', {'error_message': 'Invalid login'})
     return render(request, 'login/signin.html')
 
+
 def logout_user(request):
     logout(request)
     form = UserForm(request.POST or None)
@@ -39,6 +42,7 @@ def logout_user(request):
         "form": form,
     }
     return render(request, 'login/signin.html', context)
+
 
 def register(request):
     form = UserForm(request.POST or None)
@@ -58,12 +62,28 @@ def register(request):
         "form": form,
     }
     return render(request, 'login/registration.html', context)
-   
+
+
+class AuthorCreate(LoginRequiredMixin, FormView):
+    model = newsItem
+    form_class = newsForm
+    template_name = 'login/dashboard.html'
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
+
 def dashboard(request):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
-    queryset = TodoItem.objects.all()
+    form = newsForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = newsForm()
     context = {
-        "object_list":queryset
-        }
-    return render(request,'login/dashboard.html')
+        "newsItems": newsItem.objects.all(),
+        # "seenItems" : newsItem.objects.filter(viewed = True),
+        "form": form,
+    }
+    return render(request, 'login/dashboard.html', context)
