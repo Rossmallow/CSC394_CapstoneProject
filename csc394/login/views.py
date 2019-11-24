@@ -10,6 +10,7 @@ from tasks.views import taskView
 from tasks.models import TodoItem
 from chat.views import index
 from django.shortcuts import redirect
+from .models import newsItem
 # Create your views here.
 
 
@@ -62,9 +63,6 @@ def register(request):
         "form": form,
     }
     return render(request, 'login/registration.html', context)
-
-
-
 
 
 def dashboard(request):
