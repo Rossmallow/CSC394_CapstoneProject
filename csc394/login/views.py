@@ -64,14 +64,7 @@ def register(request):
     return render(request, 'login/registration.html', context)
 
 
-class AuthorCreate(LoginRequiredMixin, FormView):
-    model = newsItem
-    form_class = newsForm
-    template_name = 'login/dashboard.html'
 
-    def form_valid(self, form):
-        form.instance.created_by = self.request.user
-        return super().form_valid(form)
 
 
 def dashboard(request):
