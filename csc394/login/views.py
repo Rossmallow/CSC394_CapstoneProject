@@ -6,6 +6,7 @@ from django.contrib.auth import logout
 from django.views import generic
 from django.views.generic import View, CreateView
 from .forms import UserForm, newsForm
+from .models import newsItem
 from tasks.views import taskView
 from tasks.models import TodoItem
 from chat.views import index
