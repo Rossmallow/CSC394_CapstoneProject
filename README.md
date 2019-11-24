@@ -9,6 +9,8 @@ This project was created by:
 - [Miranda Shelton](https://github.com/Mirandashelt)
 - Jonathan Smajo
 
+#Tutorial
+
 What you will need to run the project:
 - Python 3.6
 - Pip 9.0.1
