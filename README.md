@@ -9,7 +9,7 @@ This project was created by:
 - [Miranda Shelton](https://github.com/Mirandashelt)
 - Jonathan Smajo
 
-#Tutorial
+# Tutorial
 
 What you will need to run the project:
 - Python 3.6
