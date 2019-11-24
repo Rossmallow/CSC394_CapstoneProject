@@ -1,22 +1,22 @@
 # CSC394 Capstone
 
 This project was created by:
-- Rodolfo Hernandez-Noria
+- [Rodolfo Hernandez-Noria](mailto:RHERNA70@mail.depaul.edu)
 - [Kyle Mastrangeli](https://github.com/kylem164)
 - [Genevive Myers](https://github.com/genevievemmyers)
 - [Ross Nelson](https://rossnelson.me)
 - [Arielle Reese](https://github.com/Arreese16)
 - [Miranda Shelton](https://github.com/Mirandashelt)
-- Jonathan Smajo
+- [Jonathan Smajo](mailto:jnsmajoj@gmail.com)
 
 # Tutorial
 
 What you will need to run the project:
-- Python 3.6
-- Pip 9.0.1
-- Git 2.17
-- Django 2.2.7
-- Channnels 2.3.1
+- [Python 3.6](https://www.python.org/)
+- [Pip 9.0.1](https://pypi.org/project/pip/)
+- [Git 2.17](https://git-scm.com/)
+- [Django 2.2.7](https://www.djangoproject.com/)
+- [Channnels 2.3.1](https://channels.readthedocs.io/en/latest/)
 
 Notes:
 - This tutorial assumes that you are using a Linux-based operating system. If you are using Windows 10, you can install the Ubuntu subsystem by following [this](https://docs.microsoft.com/en-us/windows/wsl/install-win10) tutorial. After completing that installation, you should then be able to follow this tutorial.
