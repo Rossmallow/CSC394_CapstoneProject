@@ -23,6 +23,8 @@
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
+            box-shadow: 5px 6px 5px black;
+            background-color: #595959;
         }
 
         #inProgress {
@@ -35,6 +37,8 @@
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
+            box-shadow: 5px 6px 5px black;
+            background-color: #595959;
         }
 
         #completed {
@@ -47,6 +51,8 @@
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
+            box-shadow: 5px 6px 5px black;
+            background-color: #595959;
         }
 
         #formTodo {
@@ -115,9 +121,17 @@
         }
 
 
-        h3,
+
         h1 {
             text-align: center;
+            text-shadow: 2px 2px 4px #fff;
+            font-size: 50px;
+            font-weight: bolder;
+        }
+
+        h3 {
+            text-align: center;
+            text-shadow: 2px 2px 4px #000;
         }
 
         label {
@@ -187,7 +201,7 @@
 
 </head>
 
-<body style="height: 100vh; background: linear-gradient(to bottom, #a9a9a9 0%, #4C7FB2 100%)">
+<body style="height: 100vh; background: linear-gradient(to bottom , #a9a9a9 0%, #4C7FB2 100%)">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
 
@@ -219,9 +233,9 @@
 
     <div class="task-list" id="todo">
         <header style="float: right; margin-right: 20px; margin-top: 10px;">
-            <p id="open-popup-1"><i style=" font-size:30px; margin-top: 10px;" class="fa">&#xf067;</i></p>
+            <p id="open-popup-1"><i style=" font-size:30px; margin-top: 10px; color: white;" class="fa">&#xf067;</i></p>
         </header>
-        <h3 style="margin-left: 70px">To Do</h3>
+        <h3 style="margin-left: 70px; color: white;">To Do</h3>
         <hr>
         {% for todo_item in todo%}
         <div class="todo-task" id="taskBlock" style="min-height: xxx; overflow: hidden;">
@@ -285,7 +299,7 @@
 
 
     <div class="task-list" id="inProgress">
-        <h3>In Progress</h3>
+        <h3 style="color: white;">In Progress</h3>
         <hr>
         <div id="insideProg"></div>
         {% for items in inProgress%}
@@ -323,7 +337,7 @@
         {% endfor %}
     </div>
     <div class="task-list" id="completed">
-        <h3>Completed</h3>
+        <h3 style="color: white;">Completed</h3>
         <hr>
         {% for items in completed%}
         <div class="todo-task" id="taskBlock">
