@@ -132,7 +132,7 @@
         </div>
     </div>
     <div class="dicussion" id="formDiscussion">
-        <h3 style="padding-top: 5px;">Discussion:</h3>
+        <h3 style="padding-top: 2px;">Discussion:</h3>
         </br>
         {% for comment in comments %}
         <form id=discussion-form action="/tasks/{{todoItem.id}}/editComment/{{comment.id}}/" method="post">
