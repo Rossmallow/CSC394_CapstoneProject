@@ -338,7 +338,7 @@
         <h3 style="color: white;">Completed</h3>
         <hr>
         {% for items in completed%}
-        <div class="todo-task" id="taskBlock">
+        <div class="todo-task" id="taskBlock" style="min-height: xxx; overflow: hidden;">
             <div class="task-header">
                 {{ items.title}}
                 <form action="/deleteTodo/{{items.id}}/" style="float: right;" method="post">
@@ -354,11 +354,11 @@
                 {{ items.date}}
                 <a href="/tasks/{{items.id}}/" style="float: right;">edit</a>
             </div>
-            <a href="/reviews/{{items.id}}/">review</a>
-            <form action='/changeStatus/{{items.id}}/' method="post">
+            <a href="/reviews/{{items.id}}/" style="float: right;">review</a>
+            <form action='/changeStatus/{{items.id}}/' method="post" style="float: left;">
                 {% csrf_token %}
                 <button type='submit' style="border-radius: 50%; border: black; font-size: medium;">
-                </button> <input type="hidden" value="inProgress" name="status" />
+                    < </button> <input type="hidden" value="inProgress" name="status" />
             </form>
 
         </div>
