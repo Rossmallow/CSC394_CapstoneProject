@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'tasks',
     'chat',
     'channels',
+    'cal',
     'login'
 ]
 
