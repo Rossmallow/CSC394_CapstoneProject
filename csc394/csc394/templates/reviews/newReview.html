@@ -5,10 +5,8 @@
 <form id="review" action="/addReview/" method="post">
     {% csrf_token %}
     <fieldset>
-        <label for="Task"> Task Name </label>
-        <select id="task" name="task">
-            <option value="Task Name ">Task</option>
-        </select>
+        <label for="Task"> Task Name: </label>
+        <label for="name">{{todoItem.title}}</label>
     </fieldset>
     <fieldset>
         <label for="overallPerformance"> Overall Performance </label>
