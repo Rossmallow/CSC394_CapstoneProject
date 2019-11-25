@@ -27,7 +27,8 @@ urlpatterns = [
     path('editTodo/<int:todo_id>/', editTodo),
     path('deleteTodo/<int:todo_id>/', deleteTodo),
     path('tasks/<int:todo_id>/', todoDetails),
-    path('reviews/',include('reviews.urls')),
+    path('reviews/', include('reviews.urls')),
+    path('chat/', include('chat.urls')),
     path('tasks/<int:todo_id>/addComment/', addComment),
     path('tasks/<int:todo_id>/editComment/<int:comment_id>/', editComment),
     path('tasks/<int:todo_id>/deleteComment/<int:comment_id>/', deleteComment)

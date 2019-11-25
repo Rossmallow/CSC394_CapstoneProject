@@ -11,6 +11,5 @@ class newsItem(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     body = models.TextField(blank =False, null=True )
     relatedItem = models.ForeignKey(TodoItem, blank=True, null=True,on_delete=models.SET_NULL)
-    #viewed = models.BooleanField(default = False)
     def __str__(self):
         return self.subject
