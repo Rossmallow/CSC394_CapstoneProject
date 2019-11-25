@@ -27,7 +27,7 @@ This project is our Capstone project for CSC394 at [DePaul University's College 
 
 **Steps:**
 
-**0. Initial setup.**
+**0. Initial setup**
 
 If you have Python3 and Pip3 installed you may skip this step.
 - Please make sure that you have python 3.6 and pip 9.0.1 by typing `python3 --version` and `pip3 --version` into the command line. If either are not installed please install them. [This](https://www.itsmarttricks.com/how-to-install-python-3-6-on-linux-using-terminal-interface/) tutorial should help. By installing Python3, Pip3 should also be installed.
