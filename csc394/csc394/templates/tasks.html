@@ -67,25 +67,25 @@
             padding-bottom: 15px;
         }
 
-            #formTodo label {
-                margin-left: 8px;
-            }
+        #formTodo label {
+            margin-left: 8px;
+        }
 
-            #formTodo input,
-            #formTodo textarea {
-                width: 220px;
-                margin-bottom: 5px;
-                margin-left: 8px;
-                /* margin: 1px 5px; */
-            }
+        #formTodo input,
+        #formTodo textarea {
+            width: 220px;
+            margin-bottom: 5px;
+            margin-left: 8px;
+            /* margin: 1px 5px; */
+        }
 
-            #formTodo input {
-                height: 30px;
-            }
+        #formTodo input {
+            height: 30px;
+        }
 
-                #formTodo input[type="submit"] {
-                    margin-top: 10px;
-                }
+        #formTodo input[type="submit"] {
+            margin-top: 10px;
+        }
 
         .todo-task {
             border-radius: 5px;
@@ -99,22 +99,22 @@
             margin-left: 10px;
         }
 
-            .todo-task > .task-header {
-                font-weight: bold;
-            }
+        .todo-task>.task-header {
+            font-weight: bold;
+        }
 
-            .todo-task > .task-date {
-                font-size: small;
-                font-style: italic;
-            }
+        .todo-task>.task-date {
+            font-size: small;
+            font-style: italic;
+        }
 
-            .todo-task > .task-description {
-                font-size: smaller;
-            }
+        .todo-task>.task-description {
+            font-size: smaller;
+        }
 
-            .todo-task > .task-assignee {
-                font-size: smaller;
-            }
+        .todo-task>.task-assignee {
+            font-size: smaller;
+        }
 
         h1 {
             text-align: center;
@@ -157,25 +157,25 @@
             color: black;
         }
 
-            .popup-content label {
-                margin-left: 70px;
-            }
+        .popup-content label {
+            margin-left: 70px;
+        }
 
-            .popup-content input,
-            .popup-content textarea {
-                width: 220px;
-                margin-bottom: 5px;
-                margin-left: 70px;
-                /* margin: 1px 5px; */
-            }
+        .popup-content input,
+        .popup-content textarea {
+            width: 220px;
+            margin-bottom: 5px;
+            margin-left: 70px;
+            /* margin: 1px 5px; */
+        }
 
-            .popup-content input {
-                height: 30px;
-            }
+        .popup-content input {
+            height: 30px;
+        }
 
-                .popup-content input[type="submit"] {
-                    margin-top: 10px;
-                }
+        .popup-content input[type="submit"] {
+            margin-top: 10px;
+        }
 
         .main-site {
             padding-top: 5px;
@@ -211,10 +211,12 @@
             <div class="collapse navbar-collapse" id="topNavBar">
                 <ul class="nav navbar-nav">
                     <li class=""><a href="{% url 'login:taskview' %}">Tasks</a></li>
-                    <li class=""><a href="#">Chat</a></li>
-                    <li class=""><a href="{% url 'login:logout_user' %}">Log Out</a></li>
-                    <li class="nav navbar-nav navbar-left"><a href="#">Hello, {{ user.get_username }}.</a></li>
-
+                    <li class=""><a href="{% url 'login:index' %}">Chat</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="navbar-text">Hello, {{ user.get_username }}.</a></li>
+                    <li><a href="{% url 'login:logout_user' %}"><span class="glyphicon glyphicon-log-in"></span> Log
+                            Out</a></li>
                 </ul>
             </div>
 
@@ -235,7 +237,7 @@
                 <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
                     {% csrf_token %}
                     <input type="submit" class="fa" value="&#xf014; "
-                           style="font-size: 20px; background-color: white; border: white;" />
+                        style="font-size: 20px; background-color: white; border: white;" />
                 </form>
             </div>
             <div class="task-description">{{ todo_item.content}}</div>
@@ -258,8 +260,7 @@
         <div class="popup-content">
             <header style="float: right;">
                 <button id="close-popup-1" style="border-radius: 50%; border: 0px;">
-                    <i style="font-size:24px" class="fa"
-                       id="close-popup-1">&#xf00d;</i>
+                    <i style="font-size:24px" class="fa" id="close-popup-1">&#xf00d;</i>
                 </button>
             </header>
             <h1>Add a Task</h1>
@@ -304,7 +305,7 @@
                     {% csrf_token %}
                     <!-- <input type="submit" value="Delete Task" /> -->
                     <input type="submit" class="fa" value="&#xf014; "
-                           style="font-size: 20px; background-color: white; border: white;" />
+                        style="font-size: 20px; background-color: white; border: white;" />
                 </form>
             </div>
             <div class="task-description">{{ items.content}}</div>
@@ -317,14 +318,12 @@
             <form action='/changeStatus/{{items.id}}/' method="post" style="clear:both; float:left; width: 50px;">
                 {% csrf_token %}
                 <button class="buttons" type="submit"
-                        style="display: inline-block; border-radius: 50%; border: black; font-size: medium;">
-                    < </i>
-                </button> <input type="hidden" value="todo" name="status" />
+                    style="display: inline-block; border-radius: 50%; border: black; font-size: medium;">
+                    < </i> </button> <input type="hidden" value="todo" name="status" />
             </form>
             <form action='/changeStatus/{{items.id}}/' method="post" style="float:right;">
                 {% csrf_token %}
-                <button class=" buttons" type="submit"
-                        style="border-radius: 50%; border: black; font-size: medium;">
+                <button class=" buttons" type="submit" style="border-radius: 50%; border: black; font-size: medium;">
                     >
                 </button>
                 <input type="hidden" value="completed" name="status" />
@@ -345,7 +344,7 @@
                 <form action="/deleteTodo/{{items.id}}/" style="float: right;" method="post">
                     {% csrf_token %}
                     <input type="submit" class="fa" value="&#xf014; "
-                           style="font-size: 20px; background-color: white; border: white;" />
+                        style="font-size: 20px; background-color: white; border: white;" />
                 </form>
             </div>
 
@@ -358,8 +357,7 @@
             <form action='/changeStatus/{{items.id}}/' method="post">
                 {% csrf_token %}
                 <button type='submit' style="border-radius: 50%; border: black; font-size: medium;">
-                    <
-                </button> <input type="hidden" value="inProgress" name="status" />
+                    < </button> <input type="hidden" value="inProgress" name="status" />
             </form>
 
         </div>
