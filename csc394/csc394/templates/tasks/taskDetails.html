@@ -1,62 +1,178 @@
-{% extends 'login/base.html' %}
+<!DOCTYPE html>
+<html>
 
-{% block title %}Home{% endblock %}
-{% block body %}
-<div class="task-list" id="formTodo">
-    <form id=todo-form action="/editTodo/{{todoItem.id}}/" method="post">
-        {% csrf_token %}
-        <label>Title: </label>
-        <textarea style="resize:none" name="title" rows="1">{{todoItem.title}}</textarea>
-        </br>
-        <label>Description: </label>
-        <textarea name="content">{{todoItem.content}}</textarea>
-        </br>
-        <label>Due Date: </label>
-        <input type="date" name="date" value="{{todoItem.date|date:'Y-m-d'}}" />
-        </br>
-        <label>Assign to User: </label>
-        <textarea style=" resize:none" name="user" rows="1">{{todoItem.user}}</textarea>
-        </br>
-        <input type="submit" value="Update" />
-    </form>
-</div>
+<head>
+    <style>
+        .edit-task {
+            background-color: #cccccc;
+            width: 25%;
+            height: 425px;
+            float: left;
+            margin-left: 200px;
+            border-radius: 25px;
+            box-shadow: 5px 10px 18px black;
+            clear: right;
 
-<div class="dicussion" id="formDiscussion">
-    <h3>Discussion:</h3>
-    </br>
-    {% for comment in comments %}
-    <form id=todo-form action="/tasks/{{todoItem.id}}/editComment/{{comment.id}}/" method="post">
-        {% csrf_token %}
-        <label>Title: </label>
-        <textarea style="resize:none" name="title" rows="1">{{ comment.title }}</textarea>
+        }
+
+        .taskContent {
+            padding-left: 50px;
+            padding-top: 30px;
+        }
+
+        .hide-replaced.ws-inputreplace {
+            display: none !important;
+        }
+
+        .input-picker .picker-list td>button.othermonth {
+            color: #888888;
+            background: #fff;
+        }
+
+        #todo-form>label {
+            margin-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        #todo-form>input {
+            margin-left: 30px;
+            /* margin-bottom: 50px; */
+            display: block;
+        }
+
+        #todo-form>textarea {
+            margin-left: 30px;
+            /* margin-bottom: 50px; */
+            display: block;
+        }
+
+        #todo-form>input[type=submit] {
+            margin-left: 60px;
+            background-color: #4C7FB2;
+            border: 1px solid black;
+            font-size: medium;
+            height: 50px;
+            width: 90px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .dicussion {
+            background-color: #cccccc;
+            width: 30%;
+            height: 500px;
+            margin-left: 750px;
+            border-radius: 25px;
+            box-shadow: 5px 10px 18px black;
+            overflow-y: auto;
+        }
+
+        .dicussion>h3 {
+            text-align: center;
+        }
+
+        #discussion-form>label {
+            margin-left: 30px;
+        }
+
+        #discussion-form>textarea {
+            margin-left: 30px;
+        }
+
+        #discussion-form>input[type=submit] {
+            margin-left: 150px;
+            background-color: #4C7FB2;
+            border: 1px solid black;
+            font-size: medium;
+            height: 50px;
+            width: 90px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        #deleteComment>input[type=submit] {
+            float: right;
+            margin-right: 15px;
+            background-color: red;
+            border: 1px solid black;
+            font-size: medium;
+            border-radius: 20px;
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body style="height: 100vh; background: linear-gradient(to bottom, #a9a9a9 0%, #4C7FB2 100%)">
+
+
+    {% extends 'login/base.html' %}
+
+    {% block title %}Home{% endblock %}
+    {% block body %}
+    <h1 style="text-align: center; margin-top: 40px;">{{todoItem.title}}</h1>
+    <div class="edit-task" id="formTodo">
+        <div class="taskContent">
+            <form id=todo-form action="/editTodo/{{todoItem.id}}/" method="post">
+                {% csrf_token %}
+                <label>Title: </label>
+                <textarea style="resize:none" name="title" rows="1">{{todoItem.title}}</textarea>
+                </br>
+                <label>Description: </label>
+                <textarea name="content">{{todoItem.content}}</textarea>
+                </br>
+                <label>Due Date:</label>
+                <input type="date" name="date" value="{{todoItem.date|date:'Y-m-d'}}" />
+                </br>
+                <label>Assign to User: </label>
+                <textarea style="resize:none" name="user" rows="1">{{todoItem.user}}</textarea>
+                </br>
+                <input type="submit" value="Update" />
+            </form>
+        </div>
+    </div>
+    <div class="dicussion" id="formDiscussion">
+        <h3 style="padding-top: 2px;">Discussion:</h3>
         </br>
-        <label>Body: </label>
-        <textarea name="body">{{ comment.body}}</textarea>
+        {% for comment in comments %}
+        <form id=discussion-form action="/tasks/{{todoItem.id}}/editComment/{{comment.id}}/" method="post">
+            {% csrf_token %}
+            <label>Title: </label>
+            <textarea style="resize:none" name="title" rows="1">{{ comment.title }}</textarea>
+            </br>
+            <label>Body: </label>
+            <textarea name="body">{{ comment.body}}</textarea>
+            </br>
+            <label>Author: </label>
+            <textarea style=" resize:none" name="user" rows="1">{{ comment.user}}</textarea>
+            </br>
+            <input type="submit" value="Update" />
+        </form>
         </br>
-        <label>Author: </label>
-        <textarea style=" resize:none" name="user" rows="1">{{ comment.user}}</textarea>
+        <form id="deleteComment" action="/tasks/{{todoItem.id}}/deleteComment/{{comment.id}}/" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete Comment" />
+        </form>
         </br>
-        <input type="submit" value="Update" />
-    </form>
-    <form action="/tasks/{{todoItem.id}}/deleteComment/{{comment.id}}/" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Delete Comment" />
-    </form>
-    </br>
-    {% endfor %}
-    <h3>New Comment:</h3>
-    <form id=discussion-form action="/tasks/{{todoItem.id}}/addComment/" method="post">
-        {% csrf_token %}
-        <label>Title: </label>
-        <input type="hidden" name="todoItem" value={{todoItem.pk}} />
-        <textarea style="resize:none" name="title" rows="1" placeholder="Title"></textarea>
-        </br>
-        <label>Body: </label>
-        <textarea name="body" placeholder="Body"></textarea>
-        </br>
-        <label>Author: </label>
-        <input type="hidden" name="user" value={{user.get_username}} />
-        <input type="submit" value="Submit" />
-    </form>
-</div>
-{% endblock %}
+
+        {% endfor %}
+        <hr style="height: 2px;">
+        <h3>New Comment:</h3>
+        <form id=discussion-form action="/tasks/{{todoItem.id}}/addComment/" method="post">
+            {% csrf_token %}
+            <label>Title: </label>
+            <input type="hidden" name="todoItem" value={{todoItem.pk}} />
+            <textarea style="resize:none" name="title" rows="1" placeholder="Title"></textarea>
+            </br>
+            <label>Body: </label>
+            <textarea name="body" placeholder="Body"></textarea>
+            </br>
+            <input type="hidden" name="user" value={{user.get_username}} /> <br>
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
+
+    {% endblock %}
+</body>
+
+</html>

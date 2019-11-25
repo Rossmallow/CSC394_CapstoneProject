@@ -1,9 +1,32 @@
-﻿{% for field in form %}
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-        <span class="text-danger small">{{ field.errors }}</span>
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .form-group {
+            height: 50px;
+            width: 80px;
+            padding: 20px;
+        }
+
+        /* .form-content {
+            margin-left: 20px;
+        } */
+    </style>
+</head>
+
+<body>
+    {% for field in form %}
+    <div class="form-group">
+        <div class="form-content">
+            <div class="col-sm-offset-2 col-sm-10">
+                <span class="text-danger small">{{ field.errors }}</span>
+            </div>
+            <label class="control-label col-sm-10-sm-2" style="float:left">{{field.label_tag }}</label>
+            <div class="col-sm-10">{{field }}</div>
+        </div>
     </div>
-    <label class="control-label col-sm-10-sm-2" align="left">{{field.label_tag }}</label>
-    <div class="col-sm-10">{{field }}</div>
-</div>
-{% endfor %}
+    {% endfor %}
+</body>
+
+</html>

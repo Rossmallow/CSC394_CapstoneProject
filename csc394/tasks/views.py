@@ -4,15 +4,20 @@ from .models import TodoItem, Comment
 from django.contrib.auth import authenticate
 
 # Create your views here.
-
+def formView(request):
+    form = TodoForm()
+    return render(request, 'formview.html', {'form': form})
 
 def taskView(request):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
 
-    all_todo_items = TodoItem.objects.all()
+    todo_items = TodoItem.objects.filter(status="todo")
+    todo_inProgress = TodoItem.objects.filter(status="inProgress")
+    todo_completed = TodoItem.objects.filter(status="completed")
+
     return render(request, 'tasks.html',
-                  {'all_items': all_todo_items})
+                  {'todo': todo_items, 'inProgress': todo_inProgress, 'completed': todo_completed})
 
 
 def addTodo(request):
@@ -93,3 +98,9 @@ def deleteComment(request, todo_id, comment_id):
     item_to_delete = Comment.objects.get(pk=comment_id)
     item_to_delete.delete()
     return HttpResponseRedirect('/tasks/{0}'.format(todo_id))
+
+def changeStatus(request, todo_id):
+    todo_itemStatus = TodoItem.objects.get(id=todo_id)
+    todo_itemStatus.status = request.POST['status']
+    todo_itemStatus.save()
+    return HttpResponseRedirect('/tasks/')

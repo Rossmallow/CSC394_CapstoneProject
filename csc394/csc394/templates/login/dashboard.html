@@ -10,41 +10,71 @@
         .myBox {
             border: none;
             padding: 5px;
-            width: 600px;
-            height: 200px;
+            width: 380px;
+            height: 325px;
             overflow-y: scroll;
         }
 
 
-        ::-webkit-scrollbar {
+        /* ::-webkit-scrollbar {
             width: 12px;
             height: 12px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: yellowgreen;
+            background: black;
             border-radius: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            border: 1px solid yellowgreen;
+            border: 1px solid black;
             border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #88ba1c;
+            background: #4C7FB2;
+        } */
+
+        .container2 {
+            box-shadow: 5px 6px 5px black;
+            background-color: #cccccc;
+            border-radius: 25px;
+            height: 410px;
+            width: 450px;
+            float: right;
+            margin-right: 130px;
+            margin-top: 60px;
+        }
+
+        .container2 {
+            padding-left: 80px;
+        }
+
+        #items {
+            background-color: #cccccc;
+            box-shadow: 5px 6px 5px black;
+            border-radius: 25px;
+            width: 450px;
+            height: 400px;
+            float: left;
+            margin-left: 100px;
+            margin-top: 60px;
+        }
+
+        h3 {
+            text-align: center;
         }
     </style>
 </head>
 
-<body>
+<body style="height: 100vh; background: linear-gradient(to bottom, #a9a9a9 0%, #4C7FB2 100%)">
     {% extends 'login/base.html' %}
     {% block title %}Home{% endblock %}
 
     {% block body %}
 
-    <h1 align="center">Hello, {{ user.get_username }}</h1>
-    <h2 align="center">Welcome back!</h2>
+    <h1 style="text-align: center;">Hello, {{ user.get_username }}</h1>
+    <h2 style="text-align: center;">Welcome back!</h2>
 
 
     <section class="container" id="items">
@@ -78,7 +108,7 @@
         <h4>You have no news to display</h4>
         {%endif%}
     </section>
-    <section class="container">
+    <section class="container2">
         <h3>Create new news item:</h3>
         <form method='POST'> {%csrf_token%}
             {{ form.as_p }}

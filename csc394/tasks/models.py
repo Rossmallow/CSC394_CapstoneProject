@@ -5,9 +5,9 @@ from django.db import models
 class TodoItem(models.Model):
     content = models.TextField()
     title = models.TextField(default='')
-    date = models.DateField(default='1999-01-13')
+    date = models.DateField(auto_now_add=False, auto_now=False)
     user = models.TextField(default='Self')
-    status = models.TextField(default='inProgress')
+    status = models.TextField(default="todo")
 
     def __str__(self):
         return self.title + '-' + self.user
@@ -17,3 +17,4 @@ class Comment(models.Model):
     title = models.TextField(default='')
     body = models.TextField(default='')
     user = models.TextField(default='')
+

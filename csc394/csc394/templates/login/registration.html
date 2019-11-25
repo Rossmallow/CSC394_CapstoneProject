@@ -1,30 +1,63 @@
-﻿{% extends 'login/base-visitor.html' %}
+﻿<!DOCTYPE html>
+<html>
 
-{% block body %}
-<div class="container-fluid">
+<head>
+    <style>
+        .sigupForm {
+            margin: auto;
+            height: 420px;
+            width: 450px;
+            border: 1px solid white;
+            border-radius: 25px;
+            box-shadow: 5px 10px 18px #888888;
+            padding: 15px;
+            background-color: whitesmoke;
+        }
 
-    <div class="row">
+        .signupFormContent,
+        label {
+            margin-left: 35px;
+            margin-right: 5px;
 
-        <div class="col-sm-12 col-md-7">
-            <div class="panel panel-default">
-                <div class="panel-body">
+        }
 
-                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% include 'login/form-template.html' %}
-                        <div class="form-group"></div>
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-success">Submit</button>
+        .inputField {
+            margin-left: 35px;
+            margin-bottom: 35px;
+        }
 
-                        </div>
-                    </form>
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
 
+<body style="height: 100vh; background: linear-gradient(to bottom, #a9a9a9 0%, #4C7FB2 100%)">
+
+    {% extends 'login/base-visitor.html' %}
+
+    {% block body %}
+
+    <div class="sigupForm">
+        <h2 style="margin-bottom: 20px;">Sign up</h2>
+        <hr style="border: 1px solid #4C7FB2; margin-bottom: 50px;">
+        <div class="sigupFormContent">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- {% include 'login/form-template.html' %} -->
+                {% for field in form %}
+                <div class="formInput">
+                    {{ field.errors }}
                 </div>
-
-            </div>
-
+                <label style="float:left">{{field.label_tag }}</label>
+                <div class="inputField">{{field }}</div>
+                {% endfor %}
+                <button type="submit"
+                    style="margin-left: 170px; margin-bottom: 10px; margin-top: 15px; border-radius: 20px; border: 1px solid; background-color:#4C7FB2; font-size: 16px; padding: 10px; width: 100px; color: white;">Submit</button>
+            </form>
         </div>
-
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
+</body>
+
+</html>
