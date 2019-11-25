@@ -354,10 +354,11 @@
                 {{ items.date}}
                 <a href="/tasks/{{items.id}}/" style="float: right;">edit</a>
             </div>
+            <a href="/reviews/{{items.id}}/">review</a>
             <form action='/changeStatus/{{items.id}}/' method="post">
                 {% csrf_token %}
                 <button type='submit' style="border-radius: 50%; border: black; font-size: medium;">
-                    < </button> <input type="hidden" value="inProgress" name="status" />
+                </button> <input type="hidden" value="inProgress" name="status" />
             </form>
 
         </div>

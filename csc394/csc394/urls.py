@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from tasks.views import taskView, addTodo, editTodo, deleteTodo, todoDetails, changeStatus, addComment, editComment, deleteComment
-from reviews.views import addReview
+from reviews.views import addReview, index
 
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     path('deleteTodo/<int:todo_id>/', deleteTodo),
     path('tasks/<int:todo_id>/', todoDetails),
     path('reviews/', include('reviews.urls')),
+    path('reviews/<int:todo_id>/', index),
     path('changeStatus/<int:todo_id>/', changeStatus),
     path('addReview/', addReview),
     path('chat/', include('chat.urls')),
