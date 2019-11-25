@@ -25,4 +25,4 @@ def addReview(request):
     newReview = Review(name=request.POST['task'], performance=request.POST['performance'],
                        improvement=request.POST['improvement'], additionalInfo=request.POST['additionalInfo'])
     newReview.save()
-    return HttpResponseRedirect('/tasks/')
+    return HttpResponseRedirect('/tasks.html')
