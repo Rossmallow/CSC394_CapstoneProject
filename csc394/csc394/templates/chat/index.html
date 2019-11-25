@@ -1,25 +1,74 @@
-<!-- chat/templates/chat/index.html -->
-{% extends 'login/base.html' %}
-{% block head %}
-<meta charset="utf-8" />
-<title>Chat Rooms</title>
-{% endblock%}
-{% block body %}
-    What chat room would you like to enter?<br />
-<input id="room-name-input" type="text" size="100" /><br />
-<input id="room-name-submit" type="button" value="Enter" />
+<!DOCTYPE html>
+<html>
 
-<script>
-    document.querySelector('#room-name-input').focus();
-    document.querySelector('#room-name-input').onkeyup = function (e) {
-        if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#room-name-submit').click();
+<head>
+    <style>
+        .chatBox {
+            margin: auto;
+            margin-top: 70px;
+            height: 220px;
+            width: 320px;
+            background-color: #cccccc;
+            border-radius: 25px;
+            box-shadow: 5px 10px 18px black;
         }
-    };
 
-    document.querySelector('#room-name-submit').onclick = function (e) {
-        var roomName = document.querySelector('#room-name-input').value;
-        window.location.pathname = '/chat/' + roomName + '/';
-    };
-</script>
-{% endblock %}
+        .chatBox>input[type=text] {
+            width: 150px;
+            margin-left: 90px;
+            margin-top: 15px;
+        }
+
+        .chatBox>input[type=button] {
+            /* width: 150px; */
+            margin-left: 125px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+            background-color: #4C7FB2;
+            border: 1px solid black;
+            font-size: medium;
+            height: 50px;
+            width: 90px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .chatBox>h4 {
+            text-align: center;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+
+<body style="height: 100vh; background: linear-gradient(to bottom , #a9a9a9 0%, #4C7FB2 100%)">
+
+    <!-- chat/templates/chat/index.html -->
+
+    {% extends 'login/base.html' %}
+    {% block head %}
+    <meta charset="utf-8" />
+    <title>Chat Rooms</title>
+    {% endblock%}
+    {% block body %}
+    <div class="chatBox">
+        <h4>What chat room would you like to enter?</h4><br />
+        <input id="room-name-input" type="text" size="100" /><br />
+        <input id="room-name-submit" type="button" value="Enter" />
+    </div>
+    <script>
+        document.querySelector('#room-name-input').focus();
+        document.querySelector('#room-name-input').onkeyup = function (e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#room-name-submit').click();
+            }
+        };
+
+        document.querySelector('#room-name-submit').onclick = function (e) {
+            var roomName = document.querySelector('#room-name-input').value;
+            window.location.pathname = '/chat/' + roomName + '/';
+        };
+    </script>
+    {% endblock %}
+</body>
+
+</html>
