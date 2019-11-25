@@ -66,16 +66,18 @@ def todoDetails(request, todo_id):
     comments = Comment.objects.filter(todoItem=todo_id)
     return render(request, 'tasks/taskDetails.html', {'todoItem': todoItem, 'comments': comments})
 
+
 def addComment(request, todo_id):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
 
     new_item = Comment(
-        todoItem=TodoItem.objects.get(id = request.POST['todoItem']), 
-        title=request.POST['title'], body=request.POST['body'], 
+        todoItem=TodoItem.objects.get(id=request.POST['todoItem']),
+        title=request.POST['title'], body=request.POST['body'],
         user=request.POST['user'])
     new_item.save()
     return HttpResponseRedirect('/tasks/{0}'.format(todo_id))
+
 
 def editComment(request, todo_id, comment_id):
     if not request.user.is_authenticated:
@@ -87,6 +89,7 @@ def editComment(request, todo_id, comment_id):
     item_to_edit.user = request.POST['user']
     item_to_edit.save()
     return HttpResponseRedirect('/tasks/{0}'.format(todo_id))
+
 
 def deleteComment(request, todo_id, comment_id):
     if not request.user.is_authenticated:

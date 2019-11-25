@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+<<<<<<< HEAD
 from tasks.views import taskView, addTodo, editTodo, deleteTodo, todoDetails, formView, changeStatus, addComment, editComment, deleteComment
 from django.conf import settings
 from django.conf.urls.static import static
+=======
+from tasks.views import taskView, addTodo, editTodo, deleteTodo, todoDetails, addComment, editComment, deleteComment
+from reviews.views import addReview
+>>>>>>> e887e5c1de2e0e5149998c2358f1320fb07bd452
 
 
 urlpatterns = [
@@ -29,9 +34,14 @@ urlpatterns = [
     path('editTodo/<int:todo_id>/', editTodo),
     path('deleteTodo/<int:todo_id>/', deleteTodo),
     path('tasks/<int:todo_id>/', todoDetails),
+<<<<<<< HEAD
     path('reviews/',include('reviews.urls')),
     path('formView/', formView),
     path('changeStatus/<int:todo_id>/', changeStatus),
+=======
+    path('reviews/', include('reviews.urls')),
+    path('addReview/', addReview),
+>>>>>>> e887e5c1de2e0e5149998c2358f1320fb07bd452
     path('chat/', include('chat.urls')),
     path('tasks/<int:todo_id>/addComment/', addComment),
     path('tasks/<int:todo_id>/editComment/<int:comment_id>/', editComment),

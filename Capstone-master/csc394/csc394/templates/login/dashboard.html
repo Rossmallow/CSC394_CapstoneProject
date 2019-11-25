@@ -1,0 +1,9 @@
+﻿{% extends 'login/base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+<h1 align="center">Hello, {{ user.get_username }}. You currently have no tasks assigned to you. Check back later.</h1>
+
+
+{% endblock %}

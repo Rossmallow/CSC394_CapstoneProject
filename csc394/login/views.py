@@ -6,10 +6,12 @@ from django.contrib.auth import logout
 from django.views import generic
 from django.views.generic import View, CreateView
 from .forms import UserForm, newsForm
+from .models import newsItem
 from tasks.views import taskView
 from tasks.models import TodoItem
 from chat.views import index
 from django.shortcuts import redirect
+from .models import newsItem
 # Create your views here.
 
 
@@ -64,9 +66,6 @@ def register(request):
     return render(request, 'login/registration.html', context)
 
 
-
-
-
 def dashboard(request):
     if not request.user.is_authenticated:
         return render(request, 'login/signin.html')
@@ -75,8 +74,8 @@ def dashboard(request):
         form.save()
         form = newsForm()
     context = {
-        "newsItems": newsItem.objects.all(),
-        # "seenItems" : newsItem.objects.filter(viewed = True),
-        "form": form,
-    }
-    return render(request, 'login/dashboard.html', context)
+        "newsItems" : newsItem.objects.all().order_by('-created_at'),
+        "form":form,
+        }
+    return render(request,'login/dashboard.html', context)
+
