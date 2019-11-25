@@ -23,6 +23,8 @@
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
+            box-shadow: 5px 6px 5px black;
+            background-color: #595959;
         }
 
         #inProgress {
@@ -35,6 +37,8 @@
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
+            box-shadow: 5px 6px 5px black;
+            background-color: #595959;
         }
 
         #completed {
@@ -47,6 +51,8 @@
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
+            box-shadow: 5px 6px 5px black;
+            background-color: #595959;
         }
 
         #formTodo {
@@ -59,13 +65,11 @@
             min-height: 240px;
             border-radius: 10px;
             padding-bottom: 15px;
-
         }
 
         #formTodo label {
             margin-left: 8px;
         }
-
 
         #formTodo input,
         #formTodo textarea {
@@ -75,7 +79,6 @@
             /* margin: 1px 5px; */
         }
 
-
         #formTodo input {
             height: 30px;
         }
@@ -84,6 +87,10 @@
             margin-top: 10px;
         }
 
+        /* #formTodo input[type="submit"] {
+            margin-top: 10px;
+        } */
+
         .todo-task {
             border-radius: 5px;
             background-color: #ffffff;
@@ -91,7 +98,6 @@
             margin: 5px;
             padding: 5px;
         }
-
 
         .todo-task {
             margin-left: 10px;
@@ -114,10 +120,16 @@
             font-size: smaller;
         }
 
-
-        h3,
         h1 {
             text-align: center;
+            text-shadow: 2px 2px 4px #fff;
+            font-size: 50px;
+            font-weight: bolder;
+        }
+
+        h3 {
+            text-align: center;
+            text-shadow: 2px 2px 4px #000;
         }
 
         label {
@@ -153,7 +165,6 @@
             margin-left: 70px;
         }
 
-
         .popup-content input,
         .popup-content textarea {
             width: 220px;
@@ -162,7 +173,6 @@
             /* margin: 1px 5px; */
         }
 
-
         .popup-content input {
             height: 30px;
         }
@@ -170,7 +180,6 @@
         .popup-content input[type="submit"] {
             margin-top: 10px;
         }
-
 
         .main-site {
             padding-top: 5px;
@@ -187,7 +196,7 @@
 
 </head>
 
-<body style="height: 100vh; background: linear-gradient(to bottom, #a9a9a9 0%, #4C7FB2 100%)">
+<body style="height: 100vh; background: linear-gradient(to bottom , #a9a9a9 0%, #4C7FB2 100%)">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
 
@@ -219,13 +228,14 @@
 
     <div class="task-list" id="todo">
         <header style="float: right; margin-right: 20px; margin-top: 10px;">
-            <p id="open-popup-1"><i style=" font-size:30px; margin-top: 10px;" class="fa">&#xf067;</i></p>
+            <p id="open-popup-1"><i style=" font-size:30px; margin-top: 10px; color: white;" class="fa">&#xf067;</i></p>
         </header>
-        <h3 style="margin-left: 70px">To Do</h3>
+        <h3 style="margin-left: 70px; color: white;">To Do</h3>
         <hr>
         {% for todo_item in todo%}
         <div class="todo-task" id="taskBlock" style="min-height: xxx; overflow: hidden;">
-            <div class="task-header">{{ todo_item.title}}
+            <div class="task-header">
+                {{ todo_item.title}}
                 <form action="/deleteTodo/{{todo_item.id}}/" style="float: right;" method="post">
                     {% csrf_token %}
                     <input type="submit" class="fa" value="&#xf014; "
@@ -234,7 +244,8 @@
             </div>
             <div class="task-description">{{ todo_item.content}}</div>
             <div class="task-assignee">Assigned to: {{ todo_item.user }}</div>
-            <div class="task-date">{{ todo_item.date}}
+            <div class="task-date">
+                {{ todo_item.date}}
                 <a href="/tasks/{{todo_item.id}}/" style="float: right;">edit</a>
             </div>
             <form action='/changeStatus/{{todo_item.id}}/' method="post" style="clear: both; float: right;">
@@ -250,12 +261,14 @@
     <div id="popup-1">
         <div class="popup-content">
             <header style="float: right;">
-                <button id="close-popup-1" style="border-radius: 50%; border: 0px;"><i style="font-size:24px" class="fa"
-                        id="close-popup-1">&#xf00d;</i></button>
+                <button id="close-popup-1" style="border-radius: 50%; border: 0px;">
+                    <i style="font-size:24px" class="fa" id="close-popup-1">&#xf00d;</i>
+                </button>
             </header>
             <h1>Add a Task</h1>
             <hr>
-            <form id=todo-form action="/addTodo/" method="post">{% csrf_token %}
+            <form id=todo-form action="/addTodo/" method="post">
+                {% csrf_token %}
                 <label style="margin-top: 10px;">Title</label><br>
                 <input type="text" name="title" placeholder="Title" style="margin-bottom: 15px;" /> <br>
                 <label>Description</label><br>
@@ -273,11 +286,9 @@
         var popup1 = document.getElementById("popup-1")
         var openPopup1 = document.getElementById("open-popup-1")
         var closePopup1 = document.getElementById('close-popup-1')
-
         openPopup1.addEventListener('click', () => {
             popup1.style.display = "block";
         })
-
         closePopup1.addEventListener('click', () => {
             popup1.style.display = "none";
         })
@@ -285,12 +296,13 @@
 
 
     <div class="task-list" id="inProgress">
-        <h3>In Progress</h3>
+        <h3 style="color: white;">In Progress</h3>
         <hr>
         <div id="insideProg"></div>
         {% for items in inProgress%}
         <div class="todo-task" id="taskBlock" style="min-height: xxx; overflow: hidden;">
-            <div class="task-header">{{ items.title}}
+            <div class="task-header">
+                {{ items.title}}
                 <form action="/deleteTodo/{{items.id}}/" style="float: right;" method="post">
                     {% csrf_token %}
                     <!-- <input type="submit" value="Delete Task" /> -->
@@ -300,7 +312,8 @@
             </div>
             <div class="task-description">{{ items.content}}</div>
             <div class="task-assignee">Assigned to: {{ items.user }}</div>
-            <div class="task-date">{{ items.date}}
+            <div class="task-date">
+                {{ items.date}}
                 <a href="/tasks/{{items.id}}/" style="float: right;">edit</a>
             </div>
 
@@ -312,8 +325,9 @@
             </form>
             <form action='/changeStatus/{{items.id}}/' method="post" style="float:right;">
                 {% csrf_token %}
-                <button class=" buttons" type="submit"
-                    style="border-radius: 50%; border: black; font-size: medium;">></button>
+                <button class=" buttons" type="submit" style="border-radius: 50%; border: black; font-size: medium;">
+                    >
+                </button>
                 <input type="hidden" value="completed" name="status" />
             </form>
 
@@ -323,11 +337,12 @@
         {% endfor %}
     </div>
     <div class="task-list" id="completed">
-        <h3>Completed</h3>
+        <h3 style="color: white;">Completed</h3>
         <hr>
         {% for items in completed%}
         <div class="todo-task" id="taskBlock">
-            <div class="task-header">{{ items.title}}
+            <div class="task-header">
+                {{ items.title}}
                 <form action="/deleteTodo/{{items.id}}/" style="float: right;" method="post">
                     {% csrf_token %}
                     <input type="submit" class="fa" value="&#xf014; "
@@ -337,7 +352,8 @@
 
             <div class="task-description">{{ items.content}}</div>
             <div class="task-assignee">Assigned to: {{ items.user }}</div>
-            <div class="task-date">{{ items.date}}
+            <div class="task-date">
+                {{ items.date}}
                 <a href="/tasks/{{items.id}}/" style="float: right;">edit</a>
             </div>
             <form action='/changeStatus/{{items.id}}/' method="post">

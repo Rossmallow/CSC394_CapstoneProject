@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tasks',
+    'chat',
+    'channels',
+    'login'
 ]
 
 MIDDLEWARE = [
@@ -70,6 +73,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'csc394.wsgi.application'
+ASGI_APPLICATION = "routing.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database
@@ -121,11 +134,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'csc394/static'),)
 
-
-
-
-# DATE_FORMAT = 'm-d-Y'
-# DATE_INPUT_FORMATS = ['%m-%d-%Y']
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
