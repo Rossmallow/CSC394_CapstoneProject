@@ -1,31 +1,91 @@
-{% extends 'login/base.html' %}
+<!DOCTYPE html>
+<html>
 
-{% block title %}Home{% endblock %}
-{% block body %}
-<form id="review" action="/addReview/" method="post">
-    {% csrf_token %}
-    <fieldset>
-        <label for="Task"> Task Name </label>
-        <select id="task" name="task">
-            <option value="Task Name ">Task</option>
-        </select>
-    </fieldset>
-    <fieldset>
-        <label for="overallPerformance"> Overall Performance </label>
-        <input type="radio" name="performance" value="poor"> poor
-        <input type="radio" name="performance" value="average"> average
-        <input type="radio" name="performance" value="good"> good
-        <input type="radio" name="performance" value="great"> great
-    </fieldset>
-    <fieldset>
-        <textarea rows="5" cols="50" placeholder="Ways to Improve" type="text" name="improvement" required></textarea>
-    </fieldset>
-    <fieldset>
-        <textarea rows="5" cols="50" placeholder="additional information..." type="text" name="additionalInfo"
-            required></textarea>
-    </fieldset>
-    <fieldset>
-        <button name="submit" type="submit">Submit</button>
-    </fieldset>
-</form>
-{% endblock %}
+<head>
+    <style>
+        #review {
+            background-color: #cccccc;
+            width: 40%;
+            height: 450px;
+            float: left;
+            margin-left: 380px;
+            margin-top: 50px;
+            border-radius: 25px;
+            box-shadow: 5px 10px 18px #888888;
+
+
+        }
+
+        #taskName {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bolder;
+            font-size: 24px;
+        }
+
+        #OPerform {
+            margin-left: 70px;
+            margin-top: 20px;
+        }
+
+        #wayToImpprove {
+            margin-left: 100px;
+            margin-top: 20px;
+        }
+
+        #addInfo {
+            margin-left: 100px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        #submitButton>button {
+            margin-left: 200px;
+            background-color: #4C7FB2;
+            border: 1px solid black;
+            font-size: medium;
+            height: 50px;
+            width: 90px;
+            border-radius: 20px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body style="height: 100vh; background: linear-gradient(to bottom , #a9a9a9 0%, #4C7FB2 100%)">
+
+    {% extends 'login/base.html' %}
+
+    {% block title %}Home{% endblock %}
+    {% block body %}
+    <form id="review" action="/addReview/" method="post">
+        {% csrf_token %}
+        <fieldset id="taskName">
+            <label for="Task"> Task Name </label>
+            <select id="task" name="task">
+                <option value="Task Name ">Task</option>
+            </select>
+        </fieldset>
+        <fieldset id="OPerform">
+            <label for="overallPerformance"> Overall Performance </label>
+            <input type="radio" name="performance" value="poor"> poor
+            <input type="radio" name="performance" value="average"> average
+            <input type="radio" name="performance" value="good"> good
+            <input type="radio" name="performance" value="great"> great
+        </fieldset>
+        <fieldset id="wayToImpprove">
+            <textarea rows="5" cols="50" placeholder="Ways to Improve" type="text" name="improvement"
+                required></textarea>
+        </fieldset>
+        <fieldset id="addInfo">
+            <textarea rows="5" cols="50" placeholder="additional information..." type="text" name="additionalInfo"
+                required></textarea>
+        </fieldset>
+        <fieldset id="submitButton">
+            <button name="submit" type="submit">Submit</button>
+        </fieldset>
+    </form>
+    {% endblock %}
+</body>
+
+</html>
